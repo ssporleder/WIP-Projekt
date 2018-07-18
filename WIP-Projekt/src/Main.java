@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 
 
+
 public class Main {
 
     /**
@@ -14,7 +15,9 @@ public class Main {
      */
     public static void createNewDatabase(String fileName) {
  
-        String url = "jdbc:sqlite:/sqlite/db/" + fileName;
+    	final String USER_HOME = System.getProperty("user.home"); 
+    	
+        String url = "jdbc:sqlite:" + USER_HOME + "/" + fileName;
  
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -32,6 +35,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        createNewDatabase("test.db");
+
+ 
+    	
+    	createNewDatabase("test.db");
     }
 }
