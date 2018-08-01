@@ -8,7 +8,7 @@ public class GUI {
 
 	private JFrame frame;
 
-	/**
+	/** adsausfb
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
