@@ -1,3 +1,4 @@
+package spielpaket;
 import java.net.*;
 import java.io.*;
 import spielpaket.*;
