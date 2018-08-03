@@ -1,7 +1,4 @@
 package viergewinnt;
-import java.lang.*;
-
-import viergewinnt.*;
 
 public class Player{
 	public String name;//Spieler name
