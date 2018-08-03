@@ -10,11 +10,11 @@ public class GameProtocol {
 		return("Dieser Befehl ist nicht bekannt.\r\nRufen Sie die Hilfe mit 'hilfe' auf.\r\n");	
 	}
 	          
-	//Reprezentiert Hilfe 
+	//Die folgenden Befehle stehen zur Verfügung und werden über 'hilfe' angezeigt.
 	public String help () {
 		return ("Folgende Befehle stehen zur Verfuegung:\r\n"
 	        	 +"'hilfe' um diese Hilfe anzuzeigen\r\n"
-				 +"'exit' beendet die Verbindung.\r\n"
+				 +"'exit' oder 'quit' beendet die Verbindung.\r\n"
 	             );
 	}	
 

@@ -70,6 +70,7 @@ public class ServerThread extends Thread {
 	    			inputLine = inputLine.toLowerCase();
 	    			 
 	    			 if (inputLine.equals("exit")) {exit = false; break;}
+	    			 if (inputLine.equals("quit")) {exit = false; break;}
 	    			 
 	    			 out.println(protocol.processInput(inputLine, name, this.socket.toString(), playlist));
 	    			 System.out.println(inputLine + " processed "

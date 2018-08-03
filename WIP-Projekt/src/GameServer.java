@@ -8,7 +8,7 @@ public class GameServer {
   	public static void main(String[] args) throws IOException {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
-		PlayerList playlist = new PlayerList();
+    		PlayerList playlist = new PlayerList();
 		
     		try {
       		serverSocket = new ServerSocket(10000);
