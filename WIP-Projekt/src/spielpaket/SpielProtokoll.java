@@ -47,12 +47,12 @@ public class SpielProtokoll {
           
 	//Reprezentiert Hilfe 
 	public String hello () {
-		return ("Wellcome to 4 winns server\n"
-	        	 +"Say 'show players' for showing all connected players\n"
-	        	 +"Say 'help' for help\n"
-	                 +"Say 'start game: player' to start a geme\n"
-	                 +"Say 'exit' to quit\n"
-	                 +"Say 'wait for game' to wait for game\n"
+		return ("Wellcome to 4 winns server\r\n"
+	        	 +"Say 'show players' for showing all connected players\r\n"
+	        	 +"Say 'help' for help\r\n"
+	                 +"Say 'start game: player' to start a game\r\n"
+	                 +"Say 'exit' to quit\r\n"
+	                 +"Say 'wait for game' to wait for game\r\n"
 		       );
 	}	
 

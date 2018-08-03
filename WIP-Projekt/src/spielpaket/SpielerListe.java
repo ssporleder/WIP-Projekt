@@ -35,7 +35,7 @@ public class SpielerListe{
 		while(it.hasNext()){
 			String aKey = (String) it.next();
 			Spieler pl = (Spieler) players.get(aKey);
-			str = str +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.score_wins+"/"+pl.score_looses+"\n"; 	
+			str = str +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.score_wins+"/"+pl.score_looses+"\r\n"; 	
 		}
 		return str;
 	}
