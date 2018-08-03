@@ -7,7 +7,7 @@ package Test;
 // import java.net.Socket;
 import java.io.*;
 
-import spielpaket.ServerThread;
+import spielpaket.ServerThread2;
  
 
 

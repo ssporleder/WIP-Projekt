@@ -26,7 +26,7 @@ public class VierGewinntServer {
 
 				   
     		while (listening) {
-      			new ServerThread(serverSocket.accept(), playlist).start();
+      			new ServerThread2(serverSocket.accept(), playlist).start();
     		}	
 
     		serverSocket.close();
