@@ -1,3 +1,4 @@
+package Test;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;

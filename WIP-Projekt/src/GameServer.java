@@ -1,15 +1,14 @@
-
 import java.net.*;
 import java.io.*;
-import spielpaket.*;
+import viergewinnt.*;
 
-public class VierGewinntServer {
+public class GameServer {
 	
 
   	public static void main(String[] args) throws IOException {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
-		SpielerListe playlist = new SpielerListe();
+		//SpielerListe playlist = new SpielerListe();
 		
     		try {
       		serverSocket = new ServerSocket(10000);
@@ -19,13 +18,13 @@ public class VierGewinntServer {
       			System.exit(-1);
 		}
 
-    		System.out.println("Server gestartet "
+    		System.out.println("Der Server wurde mit folgenden Parametern gestartet: "
 				   + serverSocket.getInetAddress()
 				   +":"+serverSocket.getLocalPort() );
 
 				   
     		while (listening) {
-      			new ServerThread(serverSocket.accept(), playlist).start();
+      			//new ServerThread(serverSocket.accept(), playlist).start();
     		}	
 
     		serverSocket.close();
