@@ -35,7 +35,7 @@ public class ServerThread extends Thread {
 		  new InputStreamReader(socket.getInputStream()));
 
 
-	      //String inputLine;
+	      String inputLine;
 	      
 	      while(spielerExistiert == false){ //Schleife die prufen soll ob Spieler existiert
 	        	String name;
@@ -61,7 +61,40 @@ public class ServerThread extends Thread {
 	      Player pl = (Player) playlist.players.get(name);
 	      pl.name=this.name;
 	      
-	    }
+	      while(exit == true){
+	      
+	    		if (pl.status.equals("Online")){
+	    			inputLine = null;
+	    			while ((inputLine = in.readLine()) != null) {
+	    		        
+	    			inputLine = inputLine.toLowerCase();
+	    			 
+	    			 if (inputLine.equals("exit")) {exit = false; break;}
+	    			 
+	    			 out.println(protocol.processInput(inputLine, name, this.socket.toString(), playlist));
+	    			 System.out.println(inputLine + " processed "
+	    			 +" for " + socket.getInetAddress()
+	    			 + ":"+ socket.getPort());
+	    			 break;
+	    			 }
+	    			 
+	    		}
+	    	  
+	      }
+	    
+	    
+	   	out.println("Auf wiedersehen.");
+		playlist.players.remove(name);
+		out.close();
+		in.close();
+		socket.close();
+ 
+	    
+
+	      System.out.println("Verbindung beendet  "
+		  +" for " + socket.getInetAddress()
+		  + ":"+ socket.getPort());}
+	    
 	    catch (IOException e) {
 	        e.printStackTrace();
 
