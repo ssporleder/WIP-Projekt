@@ -5,7 +5,7 @@ import java.io.*;
 
 public class ServerThread extends Thread {
   private Socket socket = null;
-  //private SpielProtokoll protocol;
+  private GameProtocol protocol;
   public String name;
   boolean exit = true;
   boolean spielerExistiert = false;
@@ -21,7 +21,7 @@ public class ServerThread extends Thread {
 	+" for " + socket.getInetAddress()
 	+ ":"+ socket.getPort());
     	
-    //protocol = new SpielProtokoll();
+    protocol = new GameProtocol();
   
   }
   
@@ -39,14 +39,15 @@ public class ServerThread extends Thread {
 	      
 	      while(spielerExistiert == false){ //Schleife die prufen soll ob Spieler existiert
 	        	String name;
-	        	out.println("Bitte geben Sie Ihrem Spielernamen ein: ");    
+	        	out.println("Bitte geben Sie einen Spielernamen ein: ");    
 	        	name = in.readLine();
 	        	if (playlist.spielerExistiert(name) == true){
 	        		this.name = name;
 	        	this.playlist.newplayer(socket.toString(),name);
 	        		
 	        		spielerExistiert = true;
-	        	out.println("Der folgende Spielername wurde festgelegt auf: \r\n" + name);
+	        	out.println("\r\nDer Spielername wurde festgelegt auf: \r\n\r\n" + name + "\n\r\r\nWillkommen auf dem 4Gewinnt Server.\r\n\r\n");
+	        	out.println(protocol.help());
 	        	
 	        	System.out.println("Spielername festgelegt auf "
 	        			+ name +" for " + socket.getInetAddress()
@@ -54,8 +55,12 @@ public class ServerThread extends Thread {
 	        		    	
 	        	
 	  	}
-	  	else {out.println("This user already exist");}
+	  	else {out.println("Ein Spieler mit dem Namen " + name + " ist bereits verbunden.\r\n");}
 	      }
+	      
+	      Player pl = (Player) playlist.players.get(name);
+	      pl.name=this.name;
+	      
 	    }
 	    catch (IOException e) {
 	        e.printStackTrace();
