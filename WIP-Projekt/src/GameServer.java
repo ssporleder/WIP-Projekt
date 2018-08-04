@@ -14,6 +14,7 @@ public class GameServer {
     		try {
       		serverSocket = new ServerSocket(10000);
       		database.createNewDatabase();
+      		
     		}
 		catch (IOException e) {
       			System.err.println("Port 10000 kann nicht geöffnet werden.");
