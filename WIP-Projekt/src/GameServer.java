@@ -28,7 +28,7 @@ public class GameServer {
     		database.createNewTable("Spieler");
     		database.createNewTable("Spiel");
 
-				   
+				  
     		while (listening) {
       			new ServerThread(serverSocket.accept(), playlist).start();
       			
