@@ -13,17 +13,20 @@ public class GameServer {
     		
     		try {
       		serverSocket = new ServerSocket(10000);
-      		database.createNewDatabase();
+      		
       		
     		}
 		catch (IOException e) {
-      			System.err.println("Port 10000 kann nicht geöffnet werden.");
+      			System.err.println("[Server] Port 10000 kann nicht geöffnet werden.");
       			System.exit(-1);
 		}
 
-    		System.out.println("Der Server wurde mit folgenden Parametern gestartet: "
+    		System.out.println("[Server] Der Server wurde mit folgenden Parametern gestartet: "
 				   + serverSocket.getInetAddress()
 				   +":"+serverSocket.getLocalPort() );
+    		database.createNewDatabase();
+    		database.createNewTable("Spieler");
+    		database.createNewTable("Spiel");
 
 				   
     		while (listening) {

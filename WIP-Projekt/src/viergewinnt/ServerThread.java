@@ -17,7 +17,7 @@ public class ServerThread extends Thread {
     this.socket = socket;
     this.playlist = playlist;
     
-    System.out.println("Verbindung akzeptiert  "
+    System.out.println("[Server] Verbindung akzeptiert  "
 	+" for " + socket.getInetAddress()
 	+ ":"+ socket.getPort());
     	
@@ -41,23 +41,23 @@ public class ServerThread extends Thread {
 	      while(spielerExistiert == false){ //Schleife die prufen soll ob Spieler existiert
 	        	String name;
 	        	//Eine Ausgabe an den verbundenen Spieler wird angezeit
-	        	out.println("Bitte geben Sie einen Spielernamen ein: ");    
+	        	out.println("[Server] Bitte geben Sie einen Spielernamen ein: ");    
 	        	name = in.readLine();
 	        	if (playlist.spielerExistiert(name) == true){
 	        		this.name = name;
 	        	this.playlist.newplayer(socket.toString(),name);
 	        		
 	        		spielerExistiert = true;
-	        	out.println("\r\nDer Spielername wurde festgelegt auf: \r\n\r\n" + name + "\n\r\r\nWillkommen auf dem 4Gewinnt Server.\r\n\r\n");
-	        	out.println(protocol.help());
+	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: \r\n\r\n" + name + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
+	        	//out.println(protocol.help());
 	        	
-	        	System.out.println("Spielername festgelegt auf "
+	        	System.out.println("[Server] Spielername festgelegt auf "
 	        			+ name +" for " + socket.getInetAddress()
 	        			+ ":"+ socket.getPort());
 	        		    	
 	        	
 	  	}
-	  	else {out.println("Ein Spieler mit dem Namen " + name + " ist bereits verbunden.\r\n");}
+	  	else {out.println("[Server] Ein Spieler mit dem Namen " + name + " ist bereits verbunden.\r\n");}
 	      }
 	      
 	      Player pl = (Player) playlist.players.get(name);
@@ -92,7 +92,7 @@ public class ServerThread extends Thread {
 	      }
 	    
 	    
-	   	out.println("Auf wiedersehen.");
+	   	out.println("[Server] Auf wiedersehen.");
 		playlist.players.remove(name);
 		out.close();
 		in.close();
@@ -100,7 +100,7 @@ public class ServerThread extends Thread {
  
 	    
 
-	      System.out.println("Verbindung beendet  "
+	      System.out.println("[Server] Verbindung beendet  "
 		  +" for " + socket.getInetAddress()
 		  + ":"+ socket.getPort());}
 	    

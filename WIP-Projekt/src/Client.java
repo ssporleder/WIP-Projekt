@@ -6,31 +6,32 @@ import java.util.*;
 public class Client {
 
 
-public static void main(String[] args)
+public static void main(String[] args) throws IOException
 {
 	java.net.Socket sock = null;
-    PrintStream out = null;
+    PrintWriter out = null;
     Scanner in = null;
-    Scanner sIn = null;
-    Scanner eIn = null;
+    //Scanner sIn = null;
+    BufferedReader eIn = null;
     boolean listening = true;
 
     try{
+    	System.out.println("[Client] Verbinde zu Server....");
         sock = new java.net.Socket("localhost",10000);
-        out = new PrintStream(sock.getOutputStream());
-        in = new Scanner(sock.getInputStream());
-        sIn = new Scanner(System.in);
-        eIn = new Scanner(System.in);
+        out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream()));
+        in = new Scanner(new BufferedReader(new InputStreamReader(sock.getInputStream())));
+        //sIn = new Scanner(System.in);
+        eIn = new BufferedReader(new InputStreamReader(System.in));
         
     }catch(Exception e){
-        System.out.println("Error connecting to server.");
+        System.out.println("[Client] Error connecting to server.");
         System.exit(1);
     }
 
-    System.out.println("Connection successful.");
+    System.out.println("[Client] Verbunden.");
 
     String temp = "";
-
+    
     //while((temp = sIn.nextLine()) != null)
     while(listening)
     {
@@ -40,21 +41,16 @@ public static void main(String[] args)
     
     	//out.println(temp);
     	//
-    	if(in.hasNextLine())System.out.println(in.nextLine());
-    	//while(in.hasNextLine())
-    			//{
-    			//System.out.println(in.nextLine());
-    			//};
-    			//while(in.hasNextLine())System.out.println(in.nextLine());
-    			out.flush();
-    			String eingabe = eIn.next();
-    			out.println(eingabe);
-    			out.flush();
+    	if(in.hasNextLine()) {
+    		System.out.println(in.nextLine());
+    	} 
+    	
+    	//System.out.println("[Client] Sende Nachricht....");
+    	temp = eIn.readLine();
+    	//System.out.println(temp);
+    	out.println(temp);
+    	out.flush();
 
-    			
-    	
-    	
-        //out.flush();
         if(temp.equals("end")) break;
     }
 
@@ -62,6 +58,7 @@ public static void main(String[] args)
         sock.close();
         in.close();
         out.close();
+        eIn.close();
     }catch(IOException ioe){}
 
 }

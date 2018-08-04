@@ -9,19 +9,20 @@ import java.sql.Statement;
 
 public class ServerDatabase {
 
-	public static String USER_HOME = System.getProperty("user.home");
-	public static String dbUrl = "jdbc:sqlite:" + USER_HOME + "/" + "ServerDatabase.db";
+	public String USER_HOME = System.getProperty("user.home");
+	public String dbUrl = "jdbc:sqlite:" + USER_HOME + "/" + "ServerDatabase.db";
 	
-    public static void createNewDatabase() {
+    public void createNewDatabase() {
  
+
     	
         //String url = "jdbc:sqlite:" + USER_HOME + "/" + fileName;
  
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                System.out.println("[Server] The driver name is " + meta.getDriverName());
+                System.out.println("[Server] Die Datenbank 'ServerDatabase' wurde im Benutzerverzeichnis angelegt.");
             }
  
         } catch (SQLException e) {
@@ -33,27 +34,40 @@ public class ServerDatabase {
      * @param args the command line arguments
      */
     
-    public static void createNewTable(String tableName) {
-        // SQLite connection string
-    	
-        //String url = "jdbc:sqlite:" + USER_HOME + "/" + fileName;
+    public void createNewTable(String tableName) {
+
+    	String sql = null;
         
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS " + tableName +"(\n"
+        if(tableName == "Spieler") {
+    	sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	name text NOT NULL,\n"
-                + "	capacity real\n"
+                + "	status text NOT NULL\n"
                 + ");";
+        }
+        // SQL statement for creating a new table
+        if(tableName == "Spiel") {
+    	sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	Spieler1 text NOT NULL,\n"
+                + "	Spieler2 text NOT NULL,\n"
+                + "	status text NOT NULL\n"
+                + ");";
+        }
+        
         
         try (Connection conn = DriverManager.getConnection(dbUrl);
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
+        
+        
+ 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        
         }
-    }
+        }
     
-	
-	
 }
