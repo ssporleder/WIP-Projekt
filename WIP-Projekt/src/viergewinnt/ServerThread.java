@@ -37,8 +37,10 @@ public class ServerThread extends Thread {
 
 	      String inputLine;
 	      
+	      //Bei Verbindungsaufbau wird überprüft, ob der Spieler schon existiert. Fall er nicht existiert wird dieser angelegt
 	      while(spielerExistiert == false){ //Schleife die prufen soll ob Spieler existiert
 	        	String name;
+	        	//Eine Ausgabe an den verbundenen Spieler wird angezeit
 	        	out.println("Bitte geben Sie einen Spielernamen ein: ");    
 	        	name = in.readLine();
 	        	if (playlist.spielerExistiert(name) == true){
@@ -63,17 +65,22 @@ public class ServerThread extends Thread {
 	      
 	      while(exit == true){
 	      
+	    	  	//Wenn Spielerstatus "Online" dann wird der foglende Ablauf durchgeführt
 	    		if (pl.status.equals("Online")){
 	    			inputLine = null;
+	    			//Es wird auf Eingaben gewartet
 	    			while ((inputLine = in.readLine()) != null) {
 	    		        
+	    			//Eingaben werden angenommen und in Kleinbuchstaben umgewandelt
 	    			inputLine = inputLine.toLowerCase();
 	    			 
+	    			 //Die folgenden if-Bedingungen beenden die Verbindung
 	    			 if (inputLine.equals("exit")) {exit = false; break;}
 	    			 if (inputLine.equals("quit")) {exit = false; break;}
 	    			 
-	    			 
+	    			 //Hier werden die Befehle an die Klasse GameProtocol übergeben wo die eigentliche Steuerung vorgenommen wird.
 	    			 out.println(protocol.processInput(inputLine, name, this.socket.toString(), playlist));
+	    			 //Ausgabe auf Console
 	    			 System.out.println(inputLine + " processed "
 	    			 +" for " + socket.getInetAddress()
 	    			 + ":"+ socket.getPort());
