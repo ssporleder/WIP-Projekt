@@ -9,9 +9,11 @@ public class GameServer {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
     		PlayerList playlist = new PlayerList();
-		
+    		final ServerDatabase database = new ServerDatabase();
+    		
     		try {
       		serverSocket = new ServerSocket(10000);
+      		database.createNewDatabase();
     		}
 		catch (IOException e) {
       			System.err.println("Port 10000 kann nicht geöffnet werden.");
@@ -25,6 +27,7 @@ public class GameServer {
 				   
     		while (listening) {
       			new ServerThread(serverSocket.accept(), playlist).start();
+      			
     		}	
 
     		serverSocket.close();
