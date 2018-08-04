@@ -1,12 +1,11 @@
-package Test;
+
 
 import java.io.*;
 import java.util.*;
 
-public class VierGewinntClient2 {
+public class Client {
 
-	
-	
+
 public static void main(String[] args)
 {
 	java.net.Socket sock = null;
