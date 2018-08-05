@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 
 public class ServerDatabase {
@@ -72,20 +73,44 @@ public class ServerDatabase {
         }
     }
     
-    public String insertPlayer(int id, String name, String status)  {
-    	String sql = "INSERT INTO Spieler(id,name,status) VALUES(?,?,?)";
+    public String insertPlayer(String name, String status)  {
+    	String sql = "INSERT INTO Spieler(id,name,status) VALUES(null,?,?)";
     	
     	
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
         		PreparedStatement pstmt = conn.prepareStatement(sql);
             //INSERT Into
-            pstmt.setInt(1, id);
-            pstmt.setString(2, name);
-            pstmt.setString(3, status);
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setString(1, name);
+            pstmt.setString(2, status);
             pstmt.executeUpdate();
         } catch (SQLException e) {
         	System.out.println(e.getMessage());
         }
 		return ("[Server] Spieler hinzugefügt");  	
     }
+    
+    //Wird nicht mehr benötigt
+    //public int getNextIdPlayer() {
+    //	String sql = "SELECT max(id) FROM Spieler;";
+    //	int nextId = 0;
+    	
+    //    try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    //		Statement stmt = conn.createStatement();
+    //    	ResultSet rs = stmt.executeQuery(sql);
+    //    	nextId = ((Number) rs.getObject(1)).intValue();
+    //    	nextId = nextId + 1;
+    //    	System.out.println(nextId);
+    //{
+    //}
+    
+    //} catch (SQLException e) {
+		// TODO Auto-generated catch block
+	//	e.printStackTrace();
+	//}
+	//	return nextId;
+    //}
+        
 }

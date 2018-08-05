@@ -46,7 +46,7 @@ public class ServerThread extends Thread {
 	        	if (playlist.spielerExistiert(name) == true){
 	        		this.name = name;
 	        	this.playlist.newplayer(socket.toString(),name);
-	        		
+	        	
 	        		spielerExistiert = true;
 	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: \r\n\r\n" + name + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
 	        	//out.println(protocol.help());

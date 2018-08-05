@@ -27,6 +27,7 @@ public class GameServer {
 				database.createNewDatabase();
 				database.createNewTable("Spieler");
 				database.createNewTable("Spiel");
+				//Test um zu verifizieren dass die Methode insertPlayer funktioniert
 				//database.insertPlayer(1,"tester","Online");
 
 				  

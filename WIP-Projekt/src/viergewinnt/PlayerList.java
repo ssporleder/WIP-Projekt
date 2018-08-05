@@ -10,20 +10,26 @@ public class PlayerList{
 	
 	public PlayerList(){
 		players = new HashMap<String, Player>();
+		database = new ServerDatabase();
 	}
 	
 	//Erzeugt einen neuen Spieler mit Namen name 
 	public void newplayer(String socket, String name){
 		players.put(name,new Player(socket));
-		//database.insertPlayer(4711,name,"Online");
+		database.insertPlayer(name, "Online");
 		number_of_players++;
 	}
+	
 	
 	//Pruft ob Spieler mit Namen name existiert
 	public boolean spielerExistiert(String name){
 		Player pl = (Player) players.get(name);
 		if (pl == null) {return(true);}
 		else {return(false);}
+	}
+	
+	public void initializeHashmap(){
+		
 	}
 	
 }
