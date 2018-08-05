@@ -9,7 +9,7 @@ public class GameServer {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
     		PlayerList playlist = new PlayerList();
-    		final ServerDatabase database = new ServerDatabase();
+    		ServerDatabase database = new ServerDatabase();
     		
     		try {
       		serverSocket = new ServerSocket(10000);
@@ -24,9 +24,10 @@ public class GameServer {
     		System.out.println("[Server] Der Server wurde mit folgenden Parametern gestartet: "
 				   + serverSocket.getInetAddress()
 				   +":"+serverSocket.getLocalPort() );
-    		database.createNewDatabase();
-    		database.createNewTable("Spieler");
-    		database.createNewTable("Spiel");
+				database.createNewDatabase();
+				database.createNewTable("Spieler");
+				database.createNewTable("Spiel");
+				//database.insertPlayer(1,"tester","Online");
 
 				  
     		while (listening) {

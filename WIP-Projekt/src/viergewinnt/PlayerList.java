@@ -6,7 +6,8 @@ import java.util.*;
 public class PlayerList{
 	public int number_of_players;
 	public Map<String, Player> players;
-
+	ServerDatabase database;
+	
 	public PlayerList(){
 		players = new HashMap<String, Player>();
 	}
@@ -14,6 +15,7 @@ public class PlayerList{
 	//Erzeugt einen neuen Spieler mit Namen name 
 	public void newplayer(String socket, String name){
 		players.put(name,new Player(socket));
+		//database.insertPlayer(4711,name,"Online");
 		number_of_players++;
 	}
 	

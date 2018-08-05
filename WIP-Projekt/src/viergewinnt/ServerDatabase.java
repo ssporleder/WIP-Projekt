@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 
 public class ServerDatabase {
@@ -12,7 +13,8 @@ public class ServerDatabase {
 	public String USER_HOME = System.getProperty("user.home");
 	public String dbUrl = "jdbc:sqlite:" + USER_HOME + "/" + "ServerDatabase.db";
 	
-    public void createNewDatabase() {
+	
+    public void createNewDatabase()  {
  
 
     	
@@ -32,6 +34,7 @@ public class ServerDatabase {
  
     /**
      * @param args the command line arguments
+     * @throws SQLException 
      */
     
     public void createNewTable(String tableName) {
@@ -57,17 +60,32 @@ public class ServerDatabase {
         }
         
         
-        try (Connection conn = DriverManager.getConnection(dbUrl);
-                Statement stmt = conn.createStatement()) {
+        
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+                Statement stmt = conn.createStatement();
             // create a new table
             stmt.execute(sql);
         
-        
- 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         
         }
-        }
+    }
     
+    public String insertPlayer(int id, String name, String status)  {
+    	String sql = "INSERT INTO Spieler(id,name,status) VALUES(?,?,?)";
+    	
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+            pstmt.setInt(1, id);
+            pstmt.setString(2, name);
+            pstmt.setString(3, status);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
+		return ("[Server] Spieler hinzugefügt");  	
+    }
 }
