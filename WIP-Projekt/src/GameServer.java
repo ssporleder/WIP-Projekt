@@ -29,7 +29,7 @@ public class GameServer {
 				database.createNewTable("Spiel");
 				//Test um zu verifizieren dass die Methode insertPlayer funktioniert
 				//database.insertPlayer(1,"tester","Online");
-
+				database.getPlayerId("asdasdasd");
 				  
     		while (listening) {
       			new ServerThread(serverSocket.accept(), playlist).start();

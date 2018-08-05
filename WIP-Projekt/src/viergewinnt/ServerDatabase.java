@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
 
 public class ServerDatabase {
 
@@ -91,25 +91,25 @@ public class ServerDatabase {
 		return ("[Server] Spieler hinzugefügt");  	
     }
     
-    //Wird nicht mehr benötigt
-    //public int getNextIdPlayer() {
-    //	String sql = "SELECT max(id) FROM Spieler;";
-    //	int nextId = 0;
+    public int getPlayerId(String name) {
+    	String sql = "SELECT id FROM Spieler WHERE name = " + "'" + name + "';";
+    	System.out.println(sql);
+    	int playerId = 0;
     	
-    //    try (Connection conn = DriverManager.getConnection(dbUrl)) {
-    //		Statement stmt = conn.createStatement();
-    //    	ResultSet rs = stmt.executeQuery(sql);
-    //    	nextId = ((Number) rs.getObject(1)).intValue();
-    //    	nextId = nextId + 1;
-    //    	System.out.println(nextId);
-    //{
-    //}
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	playerId = ((Number) rs.getObject(1)).intValue();
+ 
+        	System.out.println(playerId);
+    {
+    }
     
-    //} catch (SQLException e) {
+    } catch (SQLException e) {
 		// TODO Auto-generated catch block
-	//	e.printStackTrace();
-	//}
-	//	return nextId;
-    //}
+		e.printStackTrace();
+	}
+		return playerId;
+    }
         
 }

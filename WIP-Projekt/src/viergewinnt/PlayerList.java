@@ -28,8 +28,9 @@ public class PlayerList{
 		else {return(false);}
 	}
 	
-	public void initializeHashmap(){
-		
-	}
+    public int spielerBekannt(String name){
+    	int playerId = database.getPlayerId(name);
+    return(playerId);
+    }
 	
 }
