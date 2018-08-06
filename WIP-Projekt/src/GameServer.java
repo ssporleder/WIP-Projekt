@@ -21,15 +21,19 @@ public class GameServer {
       			System.exit(-1);
 		}
 
+			database.createNewDatabase();
+			database.createNewTable("Spieler");
+			database.createNewTable("Spiel");
+			database.createNewTable("msgkatalog");
+			//database.initializeMsgKatalog();
     		System.out.println("[Server] Der Server wurde mit folgenden Parametern gestartet: "
 				   + serverSocket.getInetAddress()
 				   +":"+serverSocket.getLocalPort() );
-				database.createNewDatabase();
-				database.createNewTable("Spieler");
-				database.createNewTable("Spiel");
+
+				//database.getPlayerId("pxcxcx");
 				//Test um zu verifizieren dass die Methode insertPlayer funktioniert
 				//database.insertPlayer(1,"tester","Online");
-				database.getPlayerId("asdasdasd");
+				//database.getPlayerId("asdasdasd");
 				  
     		while (listening) {
       			new ServerThread(serverSocket.accept(), playlist).start();

@@ -8,8 +8,13 @@ public class ServerThread extends Thread {
   private GameProtocol protocol;
   public String name;
   boolean exit = true;
-  boolean spielerExistiert = false;
+  boolean authentifiziert = false;
+  boolean bereitsVerbunden = false;
+  boolean passwortRichtig = false;
+  boolean richtigeId = false;
   PlayerList playlist; 
+  int lang = 0;
+  ServerDatabase database;
 
   
   public  ServerThread(Socket socket, PlayerList playlist) {
@@ -22,6 +27,7 @@ public class ServerThread extends Thread {
 	+ ":"+ socket.getPort());
     	
     protocol = new GameProtocol();
+    database = new ServerDatabase();
   
   }
   
@@ -36,36 +42,66 @@ public class ServerThread extends Thread {
 
 
 	      String inputLine;
+	      String name = "";
+	      int playerId = 0;
+	      String passwort;
 	      
-	      //Bei Verbindungsaufbau wird überprüft, ob der Spieler schon existiert. Fall er nicht existiert wird dieser angelegt
-	      while(spielerExistiert == false){ //Schleife die prufen soll ob Spieler existiert
-	        	String name;
-	        	//Eine Ausgabe an den verbundenen Spieler wird angezeit
-	        	out.println("[Server] Bitte geben Sie einen Spielernamen ein: ");    
-	        	name = in.readLine();
-	        	if (playlist.spielerExistiert(name) == true){
-	        		this.name = name;
-	        	this.playlist.newplayer(socket.toString(),name);
+	      
+	      
+	      while (bereitsVerbunden == false) {
+		      out.println("[Server] Bitte geben Sie einen Spielernamen ein: ");
+	    	  //out.println(database.getMessageFromKatalog(1, lang));
+	      	  name = in.readLine();
+
+	        	if (playlist.spielerNichtVerbunden(name) == true) {
+	        		bereitsVerbunden = true;
+	        	} else {out.println("[Server] Ein Spieler mit dem Namen " + name + " ist bereits verbunden.\r\n");}
+	      } 
+	    	
+	      while(authentifiziert == false) {  				
+	    	  	if (playlist.getPlayerId(name) != 0) {
+	        		playerId = playlist.getPlayerId(name);
+	        		out.println("\n\r[Server] Dieser Spieler ist bereits bekannt. Geben Sie Ihr Passwort an: ");
 	        	
-	        		spielerExistiert = true;
-	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: \r\n\r\n" + name + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
+	        		while(passwortRichtig == false) {
+	        			String tmp_passwort;
+	        			tmp_passwort = in.readLine();
+	        			String tmp = playlist.getPlayerPasswort(playerId);
+	        			System.out.println(tmp+tmp_passwort);
+	        				if(tmp_passwort == tmp){
+	        					this.name = name;
+	        					passwortRichtig = true;	        					
+		        			} else {
+		        				out.println("\r\n[Server] Die eingegebene Passwort stimmt nicht. Bitte erneut versuchen.");
+		        			}
+		        		} 
+	        		authentifiziert = true;
+        		} else {
+        		
+        		
+        		this.name = name;
+        		
+        		out.println("\r\n[Server] Bitte legen Sie ein Passwort fest:");
+        		passwort = in.readLine();
+        		playerId = this.playlist.newplayer(socket.toString(),name,playerId,passwort);
+
+	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: " + name + "\n\r[Server] Die SpielerID lautet: " + playerId + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
 	        	//out.println(protocol.help());
 	        	
 	        	System.out.println("[Server] Spielername festgelegt auf "
 	        			+ name +" for " + socket.getInetAddress()
 	        			+ ":"+ socket.getPort());
-	        		    	
-	        	
-	  	}
-	  	else {out.println("[Server] Ein Spieler mit dem Namen " + name + " ist bereits verbunden.\r\n");}
+        		}
+	    	  	authentifiziert = true;
+	    	  	this.name = name;
 	      }
-	      
+      
 	      Player pl = (Player) playlist.players.get(name);
 	      pl.name=this.name;
 	      
 	      while(exit == true){
 	      
-	    	  	//Wenn Spielerstatus "Online" dann wird der foglende Ablauf durchgeführt
+	    	  	//Dies ist die Hauptspielschleife!
 	    		if (pl.status.equals("Online")){
 	    			inputLine = null;
 	    			//Es wird auf Eingaben gewartet
