@@ -5,7 +5,7 @@ import java.io.*;
 
 public class ServerThread extends Thread {
   private Socket socket = null;
-  private GameProtocol protocol;
+  private ServerProtocol protocol;
   public String name;
   boolean exit = true;
   boolean authentifiziert = false;
@@ -25,7 +25,7 @@ public class ServerThread extends Thread {
 	+" for " + socket.getInetAddress()
 	+ ":"+ socket.getPort());
     	
-    protocol = new GameProtocol();
+    protocol = new ServerProtocol();
     database = new ServerDatabase();
   
   }
