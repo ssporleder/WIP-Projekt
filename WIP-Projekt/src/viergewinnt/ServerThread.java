@@ -11,7 +11,6 @@ public class ServerThread extends Thread {
   boolean authentifiziert = false;
   boolean bereitsVerbunden = false;
   boolean passwortRichtig = false;
-  boolean richtigeId = false;
   PlayerList playlist; 
   int lang = 0;
   ServerDatabase database;
@@ -132,6 +131,7 @@ public class ServerThread extends Thread {
 	    
 	   	out.println("[Server] Auf wiedersehen.");
 		playlist.players.remove(name);
+		playlist.setStatusPlayer("nicht verbunden", playerId, "Offline");
 		out.close();
 		in.close();
 		socket.close();

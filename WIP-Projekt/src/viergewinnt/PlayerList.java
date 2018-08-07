@@ -28,6 +28,10 @@ public class PlayerList{
 		return (playerId);
 	}
 	
+	public void setStatusPlayer(String socket, int playerId, String status){
+		database.updatePlayerStatus(playerId, status, socket);
+	}
+	
 	
 	//Pruft ob Spieler mit Namen name existiert
 	public boolean spielerNichtVerbunden(String name){
