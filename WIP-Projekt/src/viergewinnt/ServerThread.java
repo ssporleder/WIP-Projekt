@@ -67,9 +67,10 @@ public class ServerThread extends Thread {
 	        			String tmp_passwort;
 	        			tmp_passwort = in.readLine();
 	        			String tmp = playlist.getPlayerPasswort(playerId);
-	        			System.out.println(tmp+tmp_passwort);
-	        				if(tmp_passwort == tmp){
+	        				if(tmp.equals(tmp_passwort) == true){
 	        					this.name = name;
+	        					playerId = this.playlist.getPlayerId(name);
+	        					this.playlist.initPlayer(socket.toString(),name,playerId,tmp_passwort);
 	        					passwortRichtig = true;	        					
 		        			} else {
 		        				out.println("\r\n[Server] Die eingegebene Passwort stimmt nicht. Bitte erneut versuchen.");
@@ -98,10 +99,11 @@ public class ServerThread extends Thread {
       
 	      Player pl = (Player) playlist.players.get(name);
 	      pl.name=this.name;
+	      out.println(protocol.help());
 	      
 	      while(exit == true){
 	      
-	    	  	//Dies ist die Hauptspielschleife!
+	    	  	//Dies ist die Hauptspielschleife! Sollte in Zukunft durch einen MUTEX abgebildet werden.
 	    		if (pl.status.equals("Online")){
 	    			inputLine = null;
 	    			//Es wird auf Eingaben gewartet

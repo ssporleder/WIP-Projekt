@@ -21,6 +21,13 @@ public class PlayerList{
 		return (playerId);
 	} 
 	
+	public int initPlayer(String socket, String name, int playerId, String passwort){
+		players.put(name,new Player(socket));
+		playerId = database.updatePlayer(playerId, name, "Online", socket, passwort);
+		number_of_players++;
+		return (playerId);
+	}
+	
 	
 	//Pruft ob Spieler mit Namen name existiert
 	public boolean spielerNichtVerbunden(String name){

@@ -103,6 +103,27 @@ public class ServerDatabase {
 		return (playerId);  	
     }
     
+    public int updatePlayer(int id, String name, String status, String socket, String passwort)  {
+    	String sql = "UPDATE Spieler set status=?,socket=? WHERE id=?";
+    	int playerId = 0;
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setString(1, status);
+            pstmt.setString(2, socket);
+            pstmt.setInt(3, id);
+            pstmt.executeUpdate();
+            playerId = getPlayerId(name);
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
+		return (playerId);  	
+    }
+    
     public int getPlayerId(String name) {
     	String sql = "SELECT id FROM Spieler WHERE name = " + "'" + name + "';";
     	//System.out.println(sql);
