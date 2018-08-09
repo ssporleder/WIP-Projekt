@@ -159,7 +159,7 @@ public class Spiel{
 				str = str +field[j][i];	
 			
 			}
-			str = str+"\n";
+			str = str+"\r\n";
 		}
 		return(str);
 	}

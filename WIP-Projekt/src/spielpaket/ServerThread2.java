@@ -6,7 +6,7 @@ import spielpaket.*;
 import java.io.*;
 import java.lang.*;
 
-public class ServerThread extends Thread {
+public class ServerThread2 extends Thread {
   private Socket socket = null;
   private SpielProtokoll protocol;
   public String name;
@@ -15,7 +15,7 @@ public class ServerThread extends Thread {
   SpielerListe playlist; 
 
   
-  public  ServerThread(Socket socket, SpielerListe playlist) {
+  public  ServerThread2(Socket socket, SpielerListe playlist) {
     super("ServerThread");
     this.socket = socket;
     this.playlist = playlist;
