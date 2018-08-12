@@ -12,7 +12,7 @@ public class Player{
 	public String socket;
 	public int playerId;
 	ServerDatabase database;
-	//public Spiel game;//Spiel
+	public Spiel game;//Spiel
 	
 	//Erzeugt einen Spieler	
 	public Player(String socket){

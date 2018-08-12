@@ -1,8 +1,6 @@
 package viergewinnt;
-import java.lang.*;
 
-import spielpaket.Spieler;
-import spielpaket.SpielerListe;
+
 
 //Spiel asdasasd
 public class Spiel {
@@ -18,7 +16,7 @@ public class Spiel {
 		this.spieler2 = spieler2;
 	}
 	
-	public String aktion(String inputLine, String name, SpielerListe playlist){
+	public String aktion(String inputLine, String name, PlayerList playlist){
 		int a = 1;//Hilfsvariable die prüft ob die richtige (InputLine) eingegeben worden ist
 		int x = 0;//x-Koordinate. Repräsentiert die Nummer der Spalte in dem Feld
 		int y = -1;//
@@ -51,10 +49,10 @@ public class Spiel {
 						feld[x][y] = sign;
 						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
 						if (wl == false){
-							PlayerList.wechsel(spieler1,spieler2);//verschiebt die Rheienfolge
+							playlist.wechsel(spieler1,spieler2);//verschiebt die Rheienfolge
 							return("Move accepted.");
 						}
-						else {PlayerList.sieg(spieler1,spieler2);return("You win");}
+						else {playlist.sieg(spieler1,spieler2);return("You win");}
 					}
 					if (y == -1){return("This column is already full please enter other row.");};
 				}
@@ -62,7 +60,7 @@ public class Spiel {
 			
 			}
 			//Wen das Feld voll ist gewinnt niemand
-			else{PlayerList.keinSieg(spieler1,spieler2);return("The field is full nobody wins");}
+			else{playlist.keinSieg(spieler1,spieler2);return("The field is full nobody wins");}
 			return("");
 		}
 	

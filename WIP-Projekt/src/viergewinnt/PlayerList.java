@@ -1,9 +1,8 @@
 package viergewinnt;
 
 import java.util.*;
+import viergewinnt.Player;
 
-import spielpaket.Spiel;
-import spielpaket.Spieler;
 
 //PLAYERLIST asdasdas
 public class PlayerList{
@@ -72,8 +71,8 @@ public class PlayerList{
 	}
 		
 	public void antwort(Spiel ourGame){
-		Player sp2 = (Player) players.get(ourGame.pl2name);
-		Player sp1 = (Player)  players.get(ourGame.pl1name);
+		Player sp2 = (Player) players.get(ourGame.spieler2);
+		Player sp1 = (Player)  players.get(ourGame.spieler1);
 		sp2.status1 = 0;
 		sp1.status1 = 0;
 		sp2.status = "Online";	
@@ -82,7 +81,7 @@ public class PlayerList{
 	}
 
 	public void accept(Spiel ourGame){
-		Player sp1 = (Player) players.get(ourGame.pl1name);
+		Player sp1 = (Player) players.get(ourGame.spieler1);
 		sp1.game.status = 1;
 	}
     
