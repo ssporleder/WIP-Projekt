@@ -30,7 +30,7 @@ public class Client3
     Socket socketServer = null;
     try
     {
-      socketServer = new Socket ("localhost", 10000);
+      socketServer = new Socket ("192.168.2.119", 10000);
     }
     catch (UnknownHostException ex)
     {
