@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Client {
 
-//client
 public static void main(String[] args) throws IOException
 {
 	java.net.Socket sock = null;
