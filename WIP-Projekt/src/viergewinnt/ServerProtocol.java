@@ -17,7 +17,7 @@ public class ServerProtocol {
 		}
 
 		
-		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");	
+		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");
 	}
 	          
 	//Die folgenden Befehle stehen zur Verfügung und werden über 'hilfe' angezeigt.
