@@ -4,7 +4,7 @@ import java.lang.*;
 import spielpaket.Spieler;
 import spielpaket.SpielerListe;
 
-//Spiel
+//Spiel asdas
 public class Spiel {
 	int [][] feld;
 	int status;
