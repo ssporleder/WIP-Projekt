@@ -2,6 +2,9 @@ package viergewinnt;
 
 import java.util.*;
 
+import spielpaket.Spiel;
+import spielpaket.Spieler;
+
 
 public class PlayerList{
 	public int number_of_players;
@@ -52,5 +55,68 @@ public class PlayerList{
     	return playerPasswort;
     }
     
+    public void start(String name2, String name1){
+    	Player sp1 = (Player)  players.get(name2);
+    	Player sp2 = (Player)  players.get(name1);
+		sp2.status1 = 1;
+		sp1.status1 = 0;
+		sp1.game = new Spiel(name1,name2);
+		sp2.game = sp1.game;
+		sp1.status = "playing";
+		sp2.status = "playing";
+	}
+	
+	public void warten(String name){
+		Player sp = (Player)  players.get(name);
+		sp.status = "waiting";
+	}
+		
+	public void antwort(Spiel ourGame){
+		Player sp2 = (Player) players.get(ourGame.pl2name);
+		Player sp1 = (Player)  players.get(ourGame.pl1name);
+		sp2.status1 = 0;
+		sp1.status1 = 0;
+		sp2.status = "Online";	
+		sp1.status = "Online";
+		
+	}
+
+	public void accept(Spiel ourGame){
+		Player sp1 = (Player) players.get(ourGame.pl1name);
+		sp1.game.status = 1;
+	}
+    
+    public void wechsel(String name1, String name2){
+		int change = 0; 
+		Player sp1 = (Player) players.get(name1);
+		Player sp2 = (Player) players.get(name2);
+		change = sp1.status1;
+		sp1.status1 = sp2.status1;
+		sp2.status1 = change;
+	
+	}
+    
+    public void sieg(String name1, String name2){
+    	Player sp1 = (Player) players.get(name1);
+		Player sp2 = (Player) players.get(name2);
+		sp2.status1 = 0;
+		sp1.status1 = 0;
+		sp1.game.status = 0;
+		sp2.status = "Online";	
+		sp1.status = "Online";
+		sp1.score_wins++;
+		sp2.score_looses++;
+	}
+	
+	public void keinSieg(String name1, String name2){
+		Player sp1 = (Player) players.get(name1);
+		Player sp2 = (Player) players.get(name2);
+		sp2.status1 = 0;
+		sp1.status1 = 0;
+		sp1.game.status = 0;
+		sp2.status = "Online";	
+		sp1.status = "Online";
+		sp2.wincondition = 1;
+	}
 	
 }
