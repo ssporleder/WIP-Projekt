@@ -3,8 +3,8 @@ import java.io.*;
 import viergewinnt.*;
 
 public class GameServer {
-	
-
+//test	
+ 
   	public static void main(String[] args) throws IOException {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
