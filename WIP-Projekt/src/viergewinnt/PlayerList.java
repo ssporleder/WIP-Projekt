@@ -5,7 +5,7 @@ import java.util.*;
 import spielpaket.Spiel;
 import spielpaket.Spieler;
 
-
+//PLAYERLIST
 public class PlayerList{
 	public int number_of_players;
 	public Map<String, Player> players;

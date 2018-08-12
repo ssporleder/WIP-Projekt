@@ -4,6 +4,7 @@ import java.lang.*;
 import spielpaket.Spieler;
 import spielpaket.SpielerListe;
 
+//Spiel
 public class Spiel {
 	int [][] feld;
 	int status;
