@@ -112,12 +112,12 @@ public class ServerThread extends Thread {
 	    	  	
 	    	  
 	    	  
-	    	  	while(pl.status.equals("Wartend")){
-	    	  		
-	    	  	};
+	    	  	//while(pl.status.equals("Wartend")){
+	    	  	
+	    	  	while(pl.getStatus(playerId).equals("Wartend")){};
 	    	  	
 	    	  	
-	    		if (pl.status.equals("Online")){
+	    		if (pl.getStatus(playerId).equals("Online")){
 	    			inputLine = null;
 	    			//Es wird auf Eingaben gewartet
 	    			while ((inputLine = in.readLine()) != null) {

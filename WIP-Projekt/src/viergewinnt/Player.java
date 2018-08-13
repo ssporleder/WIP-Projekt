@@ -21,6 +21,7 @@ public class Player{
 		this.status = "Online";
 	 	this.socket = socket;
 	 	this.playerId = playerId;
+	 	//this.status = database.getPlayerStatusFromId(playerId);
 	 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
 	 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
 	 }
@@ -30,5 +31,9 @@ public class Player{
 		return name;
 	}
 
+	public String getStatus(int playerId) {
+		status = database.getPlayerStatusFromId(playerId);
+		return status;
+	}
 	
 }

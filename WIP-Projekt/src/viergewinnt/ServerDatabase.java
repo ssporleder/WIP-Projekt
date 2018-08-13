@@ -192,6 +192,28 @@ public class ServerDatabase {
 		return ergebnis;
     }
     
+    public String getPlayerStatusFromId(int playerId) {
+    	String sql = "SELECT status FROM Spieler WHERE id = " + "'" + playerId + "';";
+    	//System.out.println(sql);
+    	String ergebnis = "";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	ergebnis = ((String) rs.getObject(1));
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return ergebnis;
+    }
+    
     public int getAnzahlGewonnen(int playerId) {
     	String sql = "SELECT gewonnen FROM Spieler WHERE id = " + "'" + playerId + "';";
     	//System.out.println(sql);
