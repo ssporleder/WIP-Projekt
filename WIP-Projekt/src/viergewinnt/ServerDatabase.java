@@ -59,7 +59,7 @@ public class ServerDatabase {
     	sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
                 + "	id integer PRIMARY KEY,\n"
                 + "	Spieler1 text NOT NULL,\n"
-                + "	Spieler2 text NOT NULL,\n"
+                + "	Spieler2 text,\n"
                 + "	status text NOT NULL\n"
                 + ");";
         }
@@ -357,6 +357,28 @@ public class ServerDatabase {
 			
 	    }    
 	    
+	    public String listeSpiele() {
+	    	String sql = "SELECT id, Spieler1, Spieler2, status FROM Spiel;";
+	    	//System.out.println(sql);
+	    	String ergebnis = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	ergebnis = ergebnis + "SpielID: " + ((Integer) rs.getObject(1)) + " Spieler1: " + ((String) rs.getObject(2))+ " Spieler2: " + ((String) rs.getObject(3))+ " Status: " + ((String) rs.getObject(4)) + "\r\n";
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return ergebnis;
+			
+	    }
     
 	    public void initializeMsgKatalog() {
 	    	
@@ -380,6 +402,21 @@ public class ServerDatabase {
 		}
 		
     } 
+	    
+	    public void insertSpiel(String pl1, String status)  {
+	    	String sql = "INSERT INTO Spiel(id,Spieler1,status) VALUES(null,?,?)";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	            //INSERT Into
+	        	pstmt.setString(1, pl1);
+	            pstmt.setString(2, status);
+	            pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }  	
+	    }
+	    
 	    
 	    public int initializePlayer() {
 	    	String sql = "SELECT id FROM Spieler WHERE status != 'Offline';";

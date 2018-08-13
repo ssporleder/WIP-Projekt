@@ -76,6 +76,12 @@ public class PlayerList{
 		return ergebnis;
 	}
 	
+	public String listeSpiele(){
+		String ergebnis = new String();
+		ergebnis = database.listeSpiele();
+		
+		return ergebnis;
+	}
     
     //public void starteSpiel(String name2, String name1){
     //	Player pl1 = (Player)  players.get(name2);
@@ -91,8 +97,9 @@ public class PlayerList{
 	public void spielErstellen(String name, int playerId, String socket){
 		Player pl = new Player(playerId, socket.toString());
 		//pl.status = "Wartend";
-		String status = "Wartend";
-		pl.setStatusPlayer(playerId,status);
+		//String status = "Wartend";
+		pl.setStatusPlayer(playerId,"Wartend");
+		database.insertSpiel(name, "Mitspieler gesucht");
 	}
 		
 	//public void antwort(Spiel ourGame){

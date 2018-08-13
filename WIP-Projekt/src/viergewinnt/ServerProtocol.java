@@ -20,15 +20,19 @@ public class ServerProtocol {
 			return (spiel());
 		}
 		
-		//Auskommentier bis vollständig auf SQL umgestellt
 		if (inputLine.equals("spieler")){
 			playlist.spielErstellen(name, playerId, socket);
 			return("[Server] Warte auf anderen Spieler");
 		}
 		
-		if (inputLine.equals("liste")) {
+		if (inputLine.equals("liste spieler")) {
 			return(playlist.listeSpieler());
 		} 
+		
+		if (inputLine.equals("liste spiele")) {
+			return(playlist.listeSpiele());
+		}
+		
 		
 		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");
 	}
@@ -64,7 +68,8 @@ public class ServerProtocol {
 	public String spiel() {
 		return ("[Server] 'spieler' Spiel gegen Spieler starten\r\n"
 	           +"[Server] 'computer' Spiel gegen Computer starten\r\n"
-	           +"[Server] 'liste' Listet die verbundenen Spieler auf\r\n"
+	           +"[Server] 'liste spieler' Listet die verbundenen Spieler auf\r\n"
+	           +"[Server] 'liste spiele' Listet die laufenden Spiele auf\r\n"
 		       );
 
 	}
