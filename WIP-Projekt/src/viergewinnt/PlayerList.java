@@ -4,7 +4,7 @@ import java.util.*;
 import viergewinnt.Player;
 
 
-//PLAYERLIST asdasdas
+
 public class PlayerList{
 	public int number_of_players;
 	public Map<String, Player> players;
@@ -34,6 +34,12 @@ public class PlayerList{
 		database.updatePlayerStatus(playerId, status, socket);
 	}
 	
+	public void spielErstellen(String name){
+		Player pl = (Player) players.get(name);
+		pl.status = "Waiting";
+		
+	}
+	
 	
 	//Pruft ob Spieler mit Namen name existiert
 	public boolean spielerNichtVerbunden(String name){
@@ -55,67 +61,67 @@ public class PlayerList{
     }
     
     public void start(String name2, String name1){
-    	Player sp1 = (Player)  players.get(name2);
-    	Player sp2 = (Player)  players.get(name1);
-		sp2.status1 = 1;
-		sp1.status1 = 0;
-		sp1.game = new Spiel(name1,name2);
-		sp2.game = sp1.game;
-		sp1.status = "playing";
-		sp2.status = "playing";
+    	Player pl1 = (Player)  players.get(name2);
+    	Player pl2 = (Player)  players.get(name1);
+		pl2.status1 = 1;
+		pl1.status1 = 0;
+		pl1.game = new Spiel(name1,name2);
+		pl2.game = pl1.game;
+		pl1.status = "playing";
+		pl2.status = "playing";
 	}
 	
 	public void warten(String name){
-		Player sp = (Player)  players.get(name);
-		sp.status = "waiting";
+		Player pl = (Player)  players.get(name);
+		pl.status = "waiting";
 	}
 		
 	public void antwort(Spiel ourGame){
-		Player sp2 = (Player) players.get(ourGame.spieler2);
-		Player sp1 = (Player)  players.get(ourGame.spieler1);
-		sp2.status1 = 0;
-		sp1.status1 = 0;
-		sp2.status = "Online";	
-		sp1.status = "Online";
+		Player pl2 = (Player) players.get(ourGame.spieler2);
+		Player pl1 = (Player)  players.get(ourGame.spieler1);
+		pl2.status1 = 0;
+		pl1.status1 = 0;
+		pl2.status = "Online";	
+		pl1.status = "Online";
 		
 	}
 
 	public void accept(Spiel ourGame){
-		Player sp1 = (Player) players.get(ourGame.spieler1);
-		sp1.game.status = 1;
+		Player pl1 = (Player) players.get(ourGame.spieler1);
+		pl1.game.status = 1;
 	}
     
     public void wechsel(String name1, String name2){
 		int change = 0; 
-		Player sp1 = (Player) players.get(name1);
-		Player sp2 = (Player) players.get(name2);
-		change = sp1.status1;
-		sp1.status1 = sp2.status1;
-		sp2.status1 = change;
+		Player pl1 = (Player) players.get(name1);
+		Player pl2 = (Player) players.get(name2);
+		change = pl1.status1;
+		pl1.status1 = pl2.status1;
+		pl2.status1 = change;
 	
 	}
     
     public void sieg(String name1, String name2){
-    	Player sp1 = (Player) players.get(name1);
-		Player sp2 = (Player) players.get(name2);
-		sp2.status1 = 0;
-		sp1.status1 = 0;
-		sp1.game.status = 0;
-		sp2.status = "Online";	
-		sp1.status = "Online";
-		sp1.score_wins++;
-		sp2.score_looses++;
+    	Player pl1 = (Player) players.get(name1);
+		Player pl2 = (Player) players.get(name2);
+		pl2.status1 = 0;
+		pl1.status1 = 0;
+		pl1.game.status = 0;
+		pl2.status = "Online";	
+		pl1.status = "Online";
+		pl1.score_wins++;
+		pl2.score_looses++;
 	}
 	
 	public void keinSieg(String name1, String name2){
-		Player sp1 = (Player) players.get(name1);
-		Player sp2 = (Player) players.get(name2);
-		sp2.status1 = 0;
-		sp1.status1 = 0;
-		sp1.game.status = 0;
-		sp2.status = "Online";	
-		sp1.status = "Online";
-		sp2.wincondition = 1;
+		Player pl1 = (Player) players.get(name1);
+		Player pl2 = (Player) players.get(name2);
+		pl2.status1 = 0;
+		pl1.status1 = 0;
+		pl1.game.status = 0;
+		pl2.status = "Online";	
+		pl1.status = "Online";
+		pl2.wincondition = 1;
 	}
 	
 }
