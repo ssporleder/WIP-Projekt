@@ -289,6 +289,31 @@ public class ServerDatabase {
 		}
 			return msg;	
     } 
+	    
+	    
+	    public String listeSpieler() {
+	    	String sql = "SELECT name, status, socket, gewonnen, verloren FROM Spieler;";
+	    	//System.out.println(sql);
+	    	String name = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	name = name + "Name: " + ((String) rs.getObject(1)) + " Status: " + ((String) rs.getObject(2))+ " Socket: " + ((String) rs.getObject(3))+ " Gewonnen/Verloren: " + ((Integer) rs.getObject(4)) + "/" + ((Integer) rs.getObject(5)) + "\r\n";
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return name;
+			
+	    }    
+	    
     
 	    public void initializeMsgKatalog() {
 	    	

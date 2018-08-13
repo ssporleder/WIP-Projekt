@@ -17,10 +17,10 @@ public class Player{
 	//Erzeugt einen Spieler	
 	public Player(int playerId, String socket){
 		
+		database = new ServerDatabase();
 		this.status = "Online";
 	 	this.socket = socket;
 	 	this.playerId = playerId;
-	 	database = new ServerDatabase();
 	 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
 	 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
 	 }

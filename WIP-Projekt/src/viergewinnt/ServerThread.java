@@ -111,7 +111,9 @@ public class ServerThread extends Thread {
 	    	  	
 	    	  
 	    	  
-	    	  	while(pl.status.equals("Wartend")){};
+	    	  	while(pl.status.equals("Wartend")){
+	    	  		
+	    	  	};
 	    	  	
 	    	  	
 	    		if (pl.status.equals("Online")){

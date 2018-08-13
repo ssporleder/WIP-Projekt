@@ -55,19 +55,14 @@ public class PlayerList{
     	return playerPasswort;
     }
     
-	public String zeigeVerbundeneSpieler(){
+
+	public String listeSpieler(){
 		String ergebnis = new String();
-		Iterator<String> iter = players.keySet().iterator();
-
-
-		while(iter.hasNext()){
-			String aKey = (String) iter.next();
-			Player pl = (Player) players.get(aKey);
-			ergebnis = ergebnis +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.anzahlGewonnen+"/"+pl.anzahlVerloren+"\r\n"; 	
-		}
+		ergebnis = database.listeSpieler();
+		
 		return ergebnis;
 	}
-    
+	
     
     public void starteSpiel(String name2, String name1){
     	Player pl1 = (Player)  players.get(name2);

@@ -26,7 +26,7 @@ public class ServerProtocol {
 		}
 		
 		if (inputLine.equals("liste")) {
-			return(playlist.zeigeVerbundeneSpieler());
+			return(playlist.listeSpieler());
 		} 
 		
 		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");
