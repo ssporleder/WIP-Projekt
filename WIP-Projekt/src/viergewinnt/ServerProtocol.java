@@ -2,7 +2,7 @@ package viergewinnt;
 
 public class ServerProtocol {
 
-	public String processInput (String inputLine, String name, String socket, PlayerList playlist) {
+	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist) {
 		
 		if (inputLine.equals("hilfe")) {
 			return (help());
@@ -16,6 +16,18 @@ public class ServerProtocol {
 			return (einstellungen());
 		}
 
+		if (inputLine.equals("spiel")) {
+			return (spiel());
+		}
+		
+		if (inputLine.equals("spieler")){
+			playlist.spielErstellen(name, playerId, socket);
+			return("[Server] Warte auf anderen Spieler");
+		}
+		
+		if (inputLine.equals("liste")) {
+			return(playlist.zeigeVerbundeneSpieler());
+		} 
 		
 		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");
 	}
@@ -24,6 +36,7 @@ public class ServerProtocol {
 	public String help() {
 		return ("[Server] Folgende Befehle stehen zur Verfuegung:\r\n"
 	        	 +"[Server] 'hilfe' um diese Hilfe anzuzeigen\r\n"
+	        	 +"[Server] 'spiel' zeigt das Spielmenue an.\r\n"
 				 +"[Server] 'einstellungen' um die Einstellungsmoeglichkeiten anzuzeigen\r\n"
 	        	 +"[Server] 'version' um eine Ausgabe zur Version, Autor, Impressum und Kontakt zu erhalten\r\n"
 				 +"[Server] 'exit' oder 'quit' beendet die Verbindung.\r\n"
@@ -43,6 +56,14 @@ public class ServerProtocol {
 		return ("[Server] Folgende Einstellungen stehen zur Verfuegung:\r\n"
 	           +"[Server] 'passwort' Passwortaenderung\r\n"
 	           +"[Server] 'sprache' Festlegung der ausgegebenen Sprache\r\n"
+		       );
+
+	}
+	
+	public String spiel() {
+		return ("[Server] 'spieler' Spiel gegen Spieler starten\r\n"
+	           +"[Server] 'computer' Spiel gegen Computer starten\r\n"
+	           +"[Server] 'liste' Listet die verbundenen Spieler auf\r\n"
 		       );
 
 	}

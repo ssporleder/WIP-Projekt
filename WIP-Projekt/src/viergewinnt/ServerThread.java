@@ -108,8 +108,12 @@ public class ServerThread extends Thread {
 	      out.println("#");
 	      
 	      while(exit == true){
-	      
-	    	  	//Dies ist die Hauptspielschleife! Sollte in Zukunft durch einen MUTEX abgebildet werden.
+	    	  	
+	    	  
+	    	  
+	    	  	while(pl.status.equals("Wartend")){};
+	    	  	
+	    	  	
 	    		if (pl.status.equals("Online")){
 	    			inputLine = null;
 	    			//Es wird auf Eingaben gewartet
@@ -122,10 +126,10 @@ public class ServerThread extends Thread {
 	    			 if (inputLine.equals("exit")) {exit = false; break;}
 	    			 if (inputLine.equals("quit")) {exit = false; break;}
 	    			 
-	    			 //Hier werden die Befehle an die Klasse GameProtocol übergeben wo die eigentliche Steuerung vorgenommen wird.
-	    			 out.println(protocol.processInput(inputLine, name, this.socket.toString(), playlist));
+	    			 
+	    			 out.println(protocol.processInput(inputLine, playerId, name, this.socket.toString(), playlist));
 	    			 out.println("#");
-	    			 //Ausgabe auf Console
+	    		
 	    			 System.out.println(inputLine + " processed "
 	    			 +" for " + socket.getInetAddress()
 	    			 + ":"+ socket.getPort());

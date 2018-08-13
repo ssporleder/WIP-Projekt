@@ -1,6 +1,7 @@
 package viergewinnt;
 
 import java.util.*;
+
 import viergewinnt.Player;
 
 
@@ -34,12 +35,6 @@ public class PlayerList{
 		database.updatePlayerStatus(playerId, status, socket);
 	}
 	
-	public void spielErstellen(String name){
-		Player pl = (Player) players.get(name);
-		pl.status = "Waiting";
-		
-	}
-	
 	
 	//Pruft ob Spieler mit Namen name existiert
 	public boolean spielerNichtVerbunden(String name){
@@ -60,7 +55,21 @@ public class PlayerList{
     	return playerPasswort;
     }
     
-    public void start(String name2, String name1){
+	public String zeigeVerbundeneSpieler(){
+		String ergebnis = new String();
+		Iterator<String> iter = players.keySet().iterator();
+
+
+		while(iter.hasNext()){
+			String aKey = (String) iter.next();
+			Player pl = (Player) players.get(aKey);
+			ergebnis = ergebnis +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.score_wins+"/"+pl.score_looses+"\r\n"; 	
+		}
+		return ergebnis;
+	}
+    
+    
+    public void starteSpiel(String name2, String name1){
     	Player pl1 = (Player)  players.get(name2);
     	Player pl2 = (Player)  players.get(name1);
 		pl2.status1 = 1;
@@ -71,9 +80,10 @@ public class PlayerList{
 		pl2.status = "playing";
 	}
 	
-	public void warten(String name){
+	public void spielErstellen(String name, int playerId, String socket){
 		Player pl = (Player)  players.get(name);
-		pl.status = "waiting";
+		pl.status = "Wartend";
+		setStatusPlayer(socket,playerId,pl.status);
 	}
 		
 	public void antwort(Spiel ourGame){
@@ -83,7 +93,6 @@ public class PlayerList{
 		pl1.status1 = 0;
 		pl2.status = "Online";	
 		pl1.status = "Online";
-		
 	}
 
 	public void accept(Spiel ourGame){
