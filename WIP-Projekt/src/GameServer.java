@@ -25,6 +25,7 @@ public class GameServer {
 			database.createNewTable("Spieler");
 			database.createNewTable("Spiel");
 			database.createNewTable("msgkatalog");
+			database.initializePlayer();
 			//database.initializeMsgKatalog();
     		System.out.println("[Server] Der Server wurde mit folgenden Parametern gestartet: "
 				   + serverSocket.getInetAddress()

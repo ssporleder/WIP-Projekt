@@ -381,5 +381,38 @@ public class ServerDatabase {
 		}
 		
     } 
+	    
+	    public int initializePlayer() {
+	    	String sql = "SELECT id FROM Spieler WHERE status != 'Offline';";
+	    	String sql2 = "UPDATE Spieler set status='Offline',socket='nicht verbunden' WHERE id=?";
+	    	//System.out.println(sql);
+	    	int playerId = 0;
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	playerId = ((Number) rs.getObject(1)).intValue();
+	        	try (Connection conn2 = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql2);
+	            //INSERT Into
+	        	//int id = getNextIdPlayer();	
+	            //int id = 3333;
+	        	//pstmt.setInt(1, 0);
+	            pstmt.setInt(1, playerId);
+	            pstmt.executeUpdate();
+	        	}
+	        	}
+	        	//System.out.println(playerId);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return playerId;
+	    }
+	    
     
 }
