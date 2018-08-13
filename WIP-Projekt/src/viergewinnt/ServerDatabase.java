@@ -48,9 +48,12 @@ public class ServerDatabase {
                 + "	name text NOT NULL,\n"
                 + "	status text NOT NULL,\n"
                 + "	socket text NOT NULL\n,"
+                + "	gewonnen integer NULL\n,"
+                + "	verloren integer NULL\n,"
                 + " passwort text NOT NULL\n"
                 + ");";
         }
+        
         // SQL statement for creating a new table
         if(tableName == "Spiel") {
     	sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
@@ -82,19 +85,20 @@ public class ServerDatabase {
     }
     
     public int insertPlayer(String name, String status, String socket, String passwort)  {
-    	String sql = "INSERT INTO Spieler(id,name,status,socket,passwort) VALUES(null,?,?,?,?)";
+    	String sql = "INSERT INTO Spieler(id,name,status,socket,gewonnen,verloren,passwort) VALUES(null,?,?,?,?,?,?)";
     	int playerId = 0;
     	
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
         		PreparedStatement pstmt = conn.prepareStatement(sql);
             //INSERT Into
-        	//int id = getNextIdPlayer();	
-            //int id = 3333;
-        	//pstmt.setInt(1, 0);
+        	int gewonnen = 0;	
+            int verloren = 0;
             pstmt.setString(1, name);
             pstmt.setString(2, status);
             pstmt.setString(3, socket);
-            pstmt.setString(4, passwort);
+            pstmt.setInt(4, gewonnen);
+            pstmt.setInt(5, verloren);
+            pstmt.setString(6, passwort);
             pstmt.executeUpdate();
             playerId = getPlayerId(name);
         } catch (SQLException e) {
@@ -165,6 +169,51 @@ public class ServerDatabase {
 	}
 		return playerId;
     }
+    
+    public int getAnzahlGewonnen(int playerId) {
+    	String sql = "SELECT gewonnen FROM Spieler WHERE id = " + "'" + playerId + "';";
+    	//System.out.println(sql);
+    	int anzahl = 0;
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	anzahl = ((Number) rs.getObject(1)).intValue();
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return anzahl;
+    }
+    
+    public int getAnzahlVerloren(int playerId) {
+    	String sql = "SELECT verloren FROM Spieler WHERE id = " + "'" + playerId + "';";
+    	//System.out.println(sql);
+    	int anzahl = 0;
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	anzahl = ((Number) rs.getObject(1)).intValue();
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return anzahl;
+    }
+    
     
     public String getPlayerName(int playerId) {
     	String sql = "SELECT name FROM Spieler WHERE id = " + "'" + playerId + "';";

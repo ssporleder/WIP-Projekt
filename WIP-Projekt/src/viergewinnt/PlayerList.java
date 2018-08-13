@@ -18,15 +18,15 @@ public class PlayerList{
 	
 	//Erzeugt einen neuen Spieler mit Namen name 
 	public int newplayer(String socket, String name, int playerId, String passwort){
-		players.put(name,new Player(socket));
 		playerId = database.insertPlayer(name, "Online", socket, passwort);
+		players.put(name,new Player(playerId, socket));
 		number_of_players++;
 		return (playerId);
 	} 
 	
 	public int initPlayer(String socket, String name, int playerId, String passwort){
-		players.put(name,new Player(socket));
 		playerId = database.updatePlayer(playerId, name, "Online", socket, passwort);
+		players.put(name,new Player(playerId, socket));
 		number_of_players++;
 		return (playerId);
 	}
@@ -63,7 +63,7 @@ public class PlayerList{
 		while(iter.hasNext()){
 			String aKey = (String) iter.next();
 			Player pl = (Player) players.get(aKey);
-			ergebnis = ergebnis +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.score_wins+"/"+pl.score_looses+"\r\n"; 	
+			ergebnis = ergebnis +"Socket: "+pl.socket+" Name: "+ pl.name +" Status: "+ pl.status+" Score(wins/looses): "+ pl.anzahlGewonnen+"/"+pl.anzahlVerloren+"\r\n"; 	
 		}
 		return ergebnis;
 	}
@@ -118,8 +118,8 @@ public class PlayerList{
 		pl1.game.status = 0;
 		pl2.status = "Online";	
 		pl1.status = "Online";
-		pl1.score_wins++;
-		pl2.score_looses++;
+		pl1.anzahlGewonnen++;
+		pl2.anzahlVerloren++;
 	}
 	
 	public void keinSieg(String name1, String name2){
