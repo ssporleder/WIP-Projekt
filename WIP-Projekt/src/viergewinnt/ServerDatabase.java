@@ -128,8 +128,8 @@ public class ServerDatabase {
 		return (playerId);  	
     }
   
-    public void updatePlayerStatus(int id, String status, String socket)  {
-    	String sql = "UPDATE Spieler set status=?,socket=? WHERE id=?";
+    public void updatePlayerStatus(int id, String status)  {
+    	String sql = "UPDATE Spieler set status=? WHERE id=?";
     	
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
         		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -138,8 +138,7 @@ public class ServerDatabase {
             //int id = 3333;
         	//pstmt.setInt(1, 0);
             pstmt.setString(1, status);
-            pstmt.setString(2, socket);
-            pstmt.setInt(3, id);
+            pstmt.setInt(2, id);
             pstmt.executeUpdate();
             
         } catch (SQLException e) {

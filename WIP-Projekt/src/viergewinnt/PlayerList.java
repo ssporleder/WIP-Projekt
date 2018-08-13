@@ -31,9 +31,7 @@ public class PlayerList{
 		return (playerId);
 	}
 	
-	public void setStatusPlayer(String socket, int playerId, String status){
-		database.updatePlayerStatus(playerId, status, socket);
-	}
+	
 	
 	
 	//Pruft ob Spieler bereits verbunden ALT
@@ -46,12 +44,12 @@ public class PlayerList{
 	public boolean spielerNichtVerbunden(String name){
 		String status = "";
 		status = database.getPlayerStatus(name);
-		String tmp_status = "Offline"; 
-		if (status == "") {
+		//String tmp_status = "Offline"; 
+		if (status.equals("") || status.equals("Offline")) {
 			return true;
-		} else if (status.equals(tmp_status) == true) {
-			return true;
-		}
+		} //else if (status.equals(tmp_status) == true) {
+			//return true;
+		//}
 			else {
 				return false;
 			}
@@ -91,10 +89,10 @@ public class PlayerList{
 	//}
 	
 	public void spielErstellen(String name, int playerId, String socket){
-		//Player pl = (Player)  players.get(name);
+		Player pl = new Player(playerId, socket.toString());
 		//pl.status = "Wartend";
 		String status = "Wartend";
-		setStatusPlayer(socket,playerId,status);
+		pl.setStatusPlayer(playerId,status);
 	}
 		
 	//public void antwort(Spiel ourGame){

@@ -36,4 +36,8 @@ public class Player{
 		return status;
 	}
 	
+	public void setStatusPlayer(int playerId, String status){
+		database.updatePlayerStatus(playerId, status);
+	}
+	
 }

@@ -115,7 +115,7 @@ public class ServerThread extends Thread {
 	    	  	//while(pl.status.equals("Wartend")){
 	    	  	
 	    	  	while(pl.getStatus(playerId).equals("Wartend")){};
-	    	  	
+	    	  	while(pl.getStatus(playerId).equals("Spielt")){};
 	    	  	
 	    		if (pl.getStatus(playerId).equals("Online")){
 	    			inputLine = null;
@@ -149,7 +149,7 @@ public class ServerThread extends Thread {
 	   	out.println("#");
 	   	// Auskommentiert bis vollständig auf SQL umgestellt.
 	   	//		playlist.players.remove(name);
-		playlist.setStatusPlayer("nicht verbunden", playerId, "Offline");
+		pl.setStatusPlayer(playerId, "Offline");
 		out.close();
 		in.close();
 		socket.close();
