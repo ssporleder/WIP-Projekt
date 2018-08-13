@@ -20,6 +20,7 @@ public class ServerProtocol {
 			return (spiel());
 		}
 		
+		//Auskommentier bis vollständig auf SQL umgestellt
 		if (inputLine.equals("spieler")){
 			playlist.spielErstellen(name, playerId, socket);
 			return("[Server] Warte auf anderen Spieler");

@@ -1,7 +1,7 @@
 package viergewinnt;
 import java.net.*;
 import java.io.*;
-
+import viergewinnt.Player;
 
 public class ServerThread extends Thread {
   private Socket socket = null;
@@ -102,7 +102,8 @@ public class ServerThread extends Thread {
 	    	  	this.name = name;
 	      }
       
-	      Player pl = (Player) playlist.players.get(name);
+	      //Player pl = (Player) playlist.players.get(name);
+	      Player pl = new Player(playerId, socket.toString());
 	      pl.name=this.name;
 	      out.println(protocol.help());
 	      out.println("#");
@@ -139,13 +140,15 @@ public class ServerThread extends Thread {
 	    			 }
 	    			 
 	    		}
+	    
 	    	  
 	      }
 	    
 	    
 	   	out.println("[Server] Auf wiedersehen.");
 	   	out.println("#");
-		playlist.players.remove(name);
+	   	// Auskommentiert bis vollständig auf SQL umgestellt.
+	   	//		playlist.players.remove(name);
 		playlist.setStatusPlayer("nicht verbunden", playerId, "Offline");
 		out.close();
 		in.close();

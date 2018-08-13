@@ -49,10 +49,14 @@ public class Spiel {
 						feld[x][y] = sign;
 						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
 						if (wl == false){
-							playlist.wechsel(spieler1,spieler2);//verschiebt die Rheienfolge
+							//Auskommentier bis vollständig aauf SQL umgestellt.
+							//playlist.wechsel(spieler1,spieler2);//verschiebt die Rheienfolge
 							return("Move accepted.");
 						}
-						else {playlist.sieg(spieler1,spieler2);return("You win");}
+						else {
+							//Auskommentiert bis vollständig auf SQL umgestellt.
+							//playlist.sieg(spieler1,spieler2);return("You win");
+							}
 					}
 					if (y == -1){return("This column is already full please enter other row.");};
 				}
@@ -60,7 +64,10 @@ public class Spiel {
 			
 			}
 			//Wen das Feld voll ist gewinnt niemand
-			else{playlist.keinSieg(spieler1,spieler2);return("The field is full nobody wins");}
+			else{
+				//auskommentiert bis vollständig auf SQL umgestellt.
+				//playlist.keinSieg(spieler1,spieler2);
+				return("The field is full nobody wins");}
 			return("");
 		}
 	
