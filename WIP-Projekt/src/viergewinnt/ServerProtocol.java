@@ -1,80 +1,100 @@
 package viergewinnt;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ServerProtocol {
 
-	ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
 	
-	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist) {
+	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist, Locale locale) {
 		
-		if (inputLine.equals("hilfe")) {
-			return (help());
+		//database = new ServerDatabase();
+		//Locale locale = new Locale(database.getPlayerLocale(name));
+		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
+		
+		
+		if (inputLine.equals(bundle.getString("my.4"))) {
+			return (help(locale));
 		} 
 		
-		if (inputLine.equals("version")) {
-			return (version());
+		if (inputLine.equals(bundle.getString("my.5"))) {
+			return (version(locale));
 		}
 		
-		if (inputLine.equals("einstellungen")) {
-			return (einstellungen());
+		if (inputLine.equals(bundle.getString("my.6"))) {
+			return (einstellungen(locale));
 		}
 
-		if (inputLine.equals("spiel")) {
-			return (spiel());
+		if (inputLine.equals(bundle.getString("my.7"))) {
+			return (spiel(locale));
 		}
 		
-		if (inputLine.equals("spieler")){
+		if (inputLine.equals(bundle.getString("my.8"))){
 			playlist.spielErstellen(name, playerId, socket);
-			return("[Server] Warte auf anderen Spieler");
+			return(bundle.getString("my.9"));
 		}
 		
-		if (inputLine.equals("liste spieler")) {
+		if (inputLine.equals(bundle.getString("my.10"))) {
 			return(playlist.listeSpieler());
 		} 
 		
-		if (inputLine.equals("liste spiele")) {
+		if (inputLine.equals(bundle.getString("my.11"))) {
 			return(playlist.listeSpiele());
 		}
 		
 		
-		return("[Server] Dieser Befehl ist nicht bekannt.\r\n[Server] Rufen Sie die Hilfe mit 'hilfe' auf.\r\n");
+		return(bundle.getString("my.12"));
 	}
 	          
 	//Die folgenden Befehle stehen zur Verfügung und werden über 'hilfe' angezeigt.
-	public String help() {
-		return ("[Server] Folgende Befehle stehen zur Verfuegung:\r\n"
+	public String help(Locale locale) {
+
+		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
+		/*return ("[Server] Folgende Befehle stehen zur Verfuegung:\r\n"
 	        	 +"[Server] 'hilfe' um diese Hilfe anzuzeigen\r\n"
 	        	 +"[Server] 'spiel' zeigt das Spielmenue an.\r\n"
 				 +"[Server] 'einstellungen' um die Einstellungsmoeglichkeiten anzuzeigen\r\n"
 	        	 +"[Server] 'version' um eine Ausgabe zur Version, Autor, Impressum und Kontakt zu erhalten\r\n"
 				 +"[Server] 'exit' oder 'quit' beendet die Verbindung.\r\n"
-	             );
+	             );*/
+		return(bundle.getString("my.13"));
 	}	
 
-	public String version() {
-		return ("[Server] Programmname: 4Gewinnt\r\n"
+	public String version(Locale locale) {
+		
+		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
+		
+		/*return ("[Server] Programmname: 4Gewinnt\r\n"
 	        	 +"[Server] Version: 0.1\r\n"
 	        	 +"[Server] Autoren: Thomas Burmeister, Alexander Franke, Patrick Ostapowicz, Paul Siemens, Sebastian Sporleder\r\n"
 				 +"[Server] Impressum: \r\n"
 				 +"[Server] Kontakt: \r\n"
-	             );
+	             );*/
+		return(bundle.getString("my.14"));
 	}
 	
-	public String einstellungen() {
-		return ("[Server] Folgende Einstellungen stehen zur Verfuegung:\r\n"
+	public String einstellungen(Locale locale) {
+		
+		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
+		
+		/*return ("[Server] Folgende Einstellungen stehen zur Verfuegung:\r\n"
 	           +"[Server] 'passwort' Passwortaenderung\r\n"
 	           +"[Server] 'sprache' Festlegung der ausgegebenen Sprache\r\n"
-		       );
+		       );*/
+		return(bundle.getString("my.15"));
 
 	}
 	
-	public String spiel() {
-		return ("[Server] 'spieler' Spiel gegen Spieler starten\r\n"
+	public String spiel(Locale locale) {
+		
+		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
+		
+		/*return ("[Server] 'spieler' Spiel gegen Spieler starten\r\n"
 	           +"[Server] 'computer' Spiel gegen Computer starten\r\n"
 	           +"[Server] 'liste spieler' Listet die verbundenen Spieler auf\r\n"
 	           +"[Server] 'liste spiele' Listet die laufenden Spiele auf\r\n"
-		       );
+		       );*/
+		return(bundle.getString("my.16"));
 
 	}
 	

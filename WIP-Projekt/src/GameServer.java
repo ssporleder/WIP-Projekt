@@ -15,7 +15,7 @@ public class GameServer {
     		ServerDatabase database = new ServerDatabase();
     		//Locale.setDefault(new Locale("en", "EN"));
     		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
-    		System.out.println(bundle.getString("my.1"));
+    		//System.out.println(bundle.getString("my.1"));
     		
     		try {
       		serverSocket = new ServerSocket(10000);

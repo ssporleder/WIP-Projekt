@@ -94,7 +94,7 @@ public class ServerDatabase {
             //INSERT Into
         	int gewonnen = 0;	
             int verloren = 0;
-            String locale = "\"de\", \"EN\"";
+            String locale = "de_DE";
             pstmt.setString(1, name);
             pstmt.setString(2, status);
             pstmt.setString(3, socket);
@@ -174,6 +174,28 @@ public class ServerDatabase {
     
     public String getPlayerStatus(String name) {
     	String sql = "SELECT status FROM Spieler WHERE name = " + "'" + name + "';";
+    	//System.out.println(sql);
+    	String ergebnis = "";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	ergebnis = ((String) rs.getObject(1));
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return ergebnis;
+    }
+    
+    public String getPlayerLocale(String name) {
+    	String sql = "SELECT locale FROM Spieler WHERE name = " + "'" + name + "';";
     	//System.out.println(sql);
     	String ergebnis = "";
     	

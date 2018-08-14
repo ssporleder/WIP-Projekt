@@ -1,5 +1,6 @@
 package viergewinnt;
 import java.net.*;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.*;
 import viergewinnt.Player;
@@ -106,7 +107,13 @@ public class ServerThread extends Thread {
 	      //Player pl = (Player) playlist.players.get(name);
 	      Player pl = new Player(playerId, socket.toString());
 	      pl.name=this.name;
-	      out.println(protocol.help());
+	      Locale locale = new Locale(database.getPlayerLocale(name));
+	      //Locale locale = new Locale("en", "EN");
+	      out.println(locale);
+	      bundle = ResourceBundle.getBundle("msgkatalog", locale);
+	      //Locale.setDefault(new Locale(); 
+	      //out.println(bundle.getString("my.1"));
+	      out.println(protocol.help(locale));
 	      out.println("#");
 	      
 	      while(exit == true){
@@ -131,7 +138,7 @@ public class ServerThread extends Thread {
 	    			 if (inputLine.equals("quit")) {exit = false; break;}
 	    			 
 	    			 
-	    			 out.println(protocol.processInput(inputLine, playerId, name, this.socket.toString(), playlist));
+	    			 out.println(protocol.processInput(inputLine, playerId, name, this.socket.toString(), playlist, locale));
 	    			 out.println("#");
 	    		
 	    			 System.out.println(inputLine + " processed "
