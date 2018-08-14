@@ -50,7 +50,8 @@ public class ServerDatabase {
                 + "	socket text NOT NULL\n,"
                 + "	gewonnen integer NULL\n,"
                 + "	verloren integer NULL\n,"
-                + " passwort text NOT NULL\n"
+                + " passwort text NOT NULL\n,"
+                + " locale text\n"
                 + ");";
         }
         
@@ -85,7 +86,7 @@ public class ServerDatabase {
     }
     
     public int insertPlayer(String name, String status, String socket, String passwort)  {
-    	String sql = "INSERT INTO Spieler(id,name,status,socket,gewonnen,verloren,passwort) VALUES(null,?,?,?,?,?,?)";
+    	String sql = "INSERT INTO Spieler(id,name,status,socket,gewonnen,verloren,passwort,locale) VALUES(null,?,?,?,?,?,?,?)";
     	int playerId = 0;
     	
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
@@ -93,12 +94,14 @@ public class ServerDatabase {
             //INSERT Into
         	int gewonnen = 0;	
             int verloren = 0;
+            String locale = "\"de\", \"EN\"";
             pstmt.setString(1, name);
             pstmt.setString(2, status);
             pstmt.setString(3, socket);
             pstmt.setInt(4, gewonnen);
             pstmt.setInt(5, verloren);
             pstmt.setString(6, passwort);
+            pstmt.setString(7, locale);
             pstmt.executeUpdate();
             playerId = getPlayerId(name);
         } catch (SQLException e) {

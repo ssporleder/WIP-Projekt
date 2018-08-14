@@ -47,9 +47,7 @@ public class PlayerList{
 		//String tmp_status = "Offline"; 
 		if (status.equals("") || status.equals("Offline")) {
 			return true;
-		} //else if (status.equals(tmp_status) == true) {
-			//return true;
-		//}
+		}
 			else {
 				return false;
 			}
