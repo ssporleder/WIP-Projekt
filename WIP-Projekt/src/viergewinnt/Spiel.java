@@ -1,6 +1,6 @@
 package viergewinnt;
 
-
+import java.util.ResourceBundle;
 
 //Spiel asdasasd
 public class Spiel {
@@ -8,6 +8,7 @@ public class Spiel {
 	int status;
 	String spieler1;
 	String spieler2;
+	ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
 	
 	public Spiel(String spieler1, String spieler2){
 		this.feld = new int [7][6];

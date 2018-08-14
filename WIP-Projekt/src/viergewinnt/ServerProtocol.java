@@ -1,7 +1,11 @@
 package viergewinnt;
 
+import java.util.ResourceBundle;
+
 public class ServerProtocol {
 
+	ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
+	
 	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist) {
 		
 		if (inputLine.equals("hilfe")) {

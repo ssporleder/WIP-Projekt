@@ -1,5 +1,6 @@
 package viergewinnt;
 import java.net.*;
+import java.util.ResourceBundle;
 import java.io.*;
 import viergewinnt.Player;
 
@@ -14,7 +15,7 @@ public class ServerThread extends Thread {
   PlayerList playlist; 
   int lang = 0;
   ServerDatabase database;
-
+  ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
   
   public  ServerThread(Socket socket, PlayerList playlist) {
     super("ServerThread");

@@ -1,7 +1,5 @@
 package viergewinnt;
 
-import java.util.*;
-
 import viergewinnt.Player;
 
 
