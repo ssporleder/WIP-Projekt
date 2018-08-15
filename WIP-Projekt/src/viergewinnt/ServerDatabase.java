@@ -51,7 +51,9 @@ public class ServerDatabase {
                 + "	gewonnen integer NULL\n,"
                 + "	verloren integer NULL\n,"
                 + " passwort text NOT NULL\n,"
-                + " locale text\n"
+                + " locale text\n,"
+                + " spielid integer NULL,"
+                + " amZug integer NULL"
                 + ");";
         }
         
@@ -149,6 +151,41 @@ public class ServerDatabase {
         }  	
     }
     
+    public void updatePlayerAmZug(int playerId, int amZug)  {
+    	String sql = "UPDATE Spieler set amZug=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setInt(1, amZug);
+            pstmt.setInt(2, playerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
+    
+    public void updatePlayerSpielId(int playerId, int spielId)  {
+    	String sql = "UPDATE Spieler set spielId=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setInt(1, spielId);
+            pstmt.setInt(2, playerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
     
     public int getPlayerId(String name) {
     	String sql = "SELECT id FROM Spieler WHERE name = " + "'" + name + "';";
@@ -260,6 +297,50 @@ public class ServerDatabase {
 		return ergebnis;
     }
     
+    public int getPlayerAmZugFromId(int playerId) {
+    	String sql = "SELECT amZug FROM Spieler WHERE id = " + "'" + playerId + "';";
+    	//System.out.println(sql);
+    	int ergebnis = '0';
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	ergebnis = ((Integer) rs.getObject(1));
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return ergebnis;
+    }
+    
+    public int getPlayerSpielId(int playerId) {
+    	String sql = "SELECT spielId FROM Spieler WHERE id = " + "'" + playerId + "';";
+    	//System.out.println(sql);
+    	int ergebnis = '0';
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	ergebnis = ((Integer) rs.getObject(1));
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return ergebnis;
+    }
+    
     public int getAnzahlGewonnen(int playerId) {
     	String sql = "SELECT gewonnen FROM Spieler WHERE id = " + "'" + playerId + "';";
     	//System.out.println(sql);
@@ -348,6 +429,28 @@ public class ServerDatabase {
 			e.printStackTrace();
 		}
 			return passwort;	
+    } 
+	    
+	    public String getSpielStatusFromId(int spielId) {
+	    	String sql = "SELECT status FROM Spiel WHERE id = " + "'" + spielId + "';";
+	    	//System.out.println(sql);
+	    	String status = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	status = ((String) rs.getObject(1));
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return status;	
     } 
 	    
 	    public String getMessageFromKatalog(int id, int lang) {
@@ -450,18 +553,25 @@ public class ServerDatabase {
 		
     } 
 	    
-	    public void insertSpiel(String pl1, String status)  {
+	    public int insertSpiel(String pl1, String status)  {
 	    	String sql = "INSERT INTO Spiel(id,Spieler1,status) VALUES(null,?,?)";
+	    	int spielId = 0;
 	    	
 	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
-	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	        		PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 	            //INSERT Into
 	        	pstmt.setString(1, pl1);
 	            pstmt.setString(2, status);
 	            pstmt.executeUpdate();
+	            ResultSet keys = pstmt.getGeneratedKeys();
+	            keys.next();
+	            spielId = keys.getInt(1);
+	            keys.close();
+	            pstmt.close();
+	            conn.close();
 	        } catch (SQLException e) {
 	        	System.out.println(e.getMessage());
-	        }  	
+	        }  	return spielId;
 	    }
 	    
 	    

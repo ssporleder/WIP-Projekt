@@ -41,4 +41,23 @@ public class Player{
 		database.updatePlayerStatus(playerId, status);
 	}
 	
+	public void setAmZugPlayer(int playerId, int amZug){
+		database.updatePlayerAmZug(playerId, amZug);
+	}
+	
+	public int getPlayerAmZug(int playerId) {
+		int ergebnis;
+		ergebnis = database.getPlayerAmZugFromId(playerId);
+		return ergebnis;
+	}
+	
+	public void setPlayerSpielId(int playerId, int spielId){
+		database.updatePlayerSpielId(playerId, spielId);
+	}
+	
+	public int getPlayerSpielId(int playerId){
+		int spielId = database.getPlayerSpielId(playerId);
+		return spielId;
+	}
+	
 }

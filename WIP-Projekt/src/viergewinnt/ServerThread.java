@@ -149,7 +149,7 @@ public class ServerThread extends Thread {
 	    		
 	    		if (pl.getStatus(playerId).equals("Spielt")){
 	    			//Wenn jemand angeschprochen war dann muss er sich entscheiden ob er spielen will
-	    			if (pl.game.status == 0 && pl.status1 == 1){out.println("You have been requested. Do you want to play:[y/n]");
+	    			if (pl.game.status == 0 && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");
 	    				inputLine = in.readLine();
 	    				inputLine = inputLine.toLowerCase();
 	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.game);pl.game = null;out.println(protocol.help(locale));}

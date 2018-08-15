@@ -1,19 +1,27 @@
 package spielpaket;
 
+import viergewinnt.ServerDatabase;
+
 public class Spiel{
 	int [][] field;//
-	int status;//
+	String status;//
 	String pl1name;//
 	String pl2name;//
+	ServerDatabase database;
 	
 	//
 	public Spiel(String pl1name, String pl2name){
+		
+	database = new ServerDatabase();
 	this.field  = new int [7][6];
-	this.status = 0;
 	this.pl1name = pl1name;
 	this.pl2name = pl2name;
 	}
 	
+	public String getSpielStatus(int spielId){
+			status = database.getSpielStatusFromId(spielId);
+			return status; 
+	}
 	
 	public String move(String inputLine, String name, SpielerListe playlist){
 		int a = 1;//Hilfsvariable die prüft ob die richtige (InputLine) eingegeben worden ist

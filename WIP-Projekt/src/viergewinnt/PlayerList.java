@@ -86,12 +86,12 @@ public class PlayerList{
 	}
     
     public void starteSpiel(int playerId1, int playerId2, String socket1, String socket2){
-    	Player pl1 = new Player(playerId1, socket1);
-    	Player pl2 = new Player(playerId2, socket2);
+    	Player pl2 = new Player(playerId1, socket1);
+    	Player pl1 = new Player(playerId2, socket2);
 		pl1.setStatusPlayer(playerId1, "Spielt");
 		pl2.setStatusPlayer(playerId2, "Spielt");
-		pl1.status1 = 1;
-		pl2.status1 = 0;
+		pl2.setAmZugPlayer(playerId1, 1);
+		pl1.setAmZugPlayer(playerId2, 0);
 		pl1.game = new Spiel(pl1.getName(playerId1),pl2.getName(playerId2));
 		pl2.game = pl1.game;
 	//	pl1.status = "playing";
@@ -103,7 +103,8 @@ public class PlayerList{
 		//pl.status = "Wartend";
 		//String status = "Wartend";
 		pl.setStatusPlayer(playerId,"Wartend");
-		database.insertSpiel(name, "Mitspieler gesucht");
+		int spielId = database.insertSpiel(name, "Mitspieler gesucht");
+		pl.setPlayerSpielId(playerId, spielId);
 	}
 		
 	//public void antwort(Spiel ourGame){
