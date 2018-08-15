@@ -2,6 +2,8 @@ package spielpaket;
 import java.net.*;
 
 import spielpaket.*;
+import spielpaket.Spieler;
+import spielpaket.Spiel;
 
 import java.io.*;
 import java.lang.*;

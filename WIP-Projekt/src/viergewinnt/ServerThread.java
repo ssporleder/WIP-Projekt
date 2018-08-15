@@ -148,19 +148,19 @@ public class ServerThread extends Thread {
 	    		}
 	    		
 	    		if (pl.getStatus(playerId).equals("Spielt")){
-	    			//Wenn jemand angeschprochen war dann muss er sich entscheiden ob er spielen will
-	    			if (pl.game.status == 0 && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");
+	    			//Wenn Spiel im Zustand "Mitspieler gesucht" und Spieler Attr. "amZug" = 1, dann "Frage ob er spielen möchte":
+	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");
 	    				inputLine = in.readLine();
 	    				inputLine = inputLine.toLowerCase();
-	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.game);pl.game = null;out.println(protocol.help(locale));}
-	    				if (inputLine.equals("y")){playlist.spielAkzeptiert(pl.game);}
+	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.getPlayerSpielId(playerId));pl.game = null;out.println(protocol.help(locale));}
+	    				if (inputLine.equals("y")){playlist.spielAkzeptiert(pl.getPlayerSpielId(playerId));}
 	    			}
 	    		
 	    			if(pl.game != null){
-	    			if (pl.game.status == 0 && pl.status1 == 0){
+	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.status1 == 0){
 	    				//Sieler der fragte muss hier warten bis der andere Spieler seine antwort gibt 
-	    				while(pl.game != null && pl.game.status == 0 && !pl.status.equals("Online")){};
-	    				if (pl.status.equals("Online")){out.println("Player refused");}
+	    				while(pl.game != null && database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && !pl.getStatus(playerId).equals("Online")){};
+	    				if (pl.getStatus(playerId).equals("Online")){out.println("Player refused");out.println(protocol.help(locale));}
 	    			}
 	    			}
 	    			//Das spiel starten und die Spieler mache ihre zuge bis jemang gewonnen hat oder die Spalten voll sind

@@ -2,6 +2,7 @@ package spielpaket;
 import java.lang.*;
 
 import spielpaket.*;
+import spielpaket.Spiel;
 
 public class Spieler{
 	public String name;//Spieler name

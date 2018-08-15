@@ -92,8 +92,10 @@ public class PlayerList{
 		pl2.setStatusPlayer(playerId2, "Spielt");
 		pl2.setAmZugPlayer(playerId1, 1);
 		pl1.setAmZugPlayer(playerId2, 0);
-		pl1.game = new Spiel(pl1.getName(playerId1),pl2.getName(playerId2));
-		pl2.game = pl1.game;
+		pl1.setPlayerSpielId(playerId2, pl2.getPlayerSpielId(playerId1));
+		database.updateSpielSpieler2(pl2.getPlayerSpielId(playerId1), pl2.getName(playerId2));
+		//new Spiel(pl1.getName(playerId1),pl2.getName(playerId2));
+		//pl2.game = pl1.game;
 	//	pl1.status = "playing";
 	//	pl2.status = "playing";
 	}
@@ -116,16 +118,24 @@ public class PlayerList{
 	//	pl1.status = "Online";
 	//}
 
-	public void spielAkzeptiert(Spiel ourGame){
-	//	Player pl1 = (Player) players.get(ourGame.spieler1);
-	//	pl1.game.status = 1;
+	public void spielAkzeptiert(int spielId){
+		//Player pl1 = (Player) players.get(ourGame.spieler1);
+		String status = "Gestartet";
+		database.updateSpielStatus(spielId, status);
 	}
 	
-	public void spielAbgelehnt(Spiel ourGame){
+	public void spielAbgelehnt(int spielId){
 	//	Spieler pl2 = (Spieler) players.get(ourGame.pl2name);
 	//	Spieler pl1 = (Spieler) players.get(ourGame.pl1name);
 	//	pl2.status1 = 0;
-	//	pl1.status1 = 0;
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), "Online");
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+		database.updateSpielStatus(spielId, "Abgelehnt");
+		//	pl1.status1 = 0;
 	//	pl2.status = "Online";	
 	//	pl1.status = "Online";
 		

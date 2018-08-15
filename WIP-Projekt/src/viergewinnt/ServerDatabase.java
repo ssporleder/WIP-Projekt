@@ -453,6 +453,51 @@ public class ServerDatabase {
 			return status;	
     } 
 	    
+	    public String getSpielSpieler1FromId(int spielId) {
+	    	String sql = "SELECT Spieler1 FROM Spiel WHERE id = " + "'" + spielId + "';";
+	    	//System.out.println(sql);
+	    	String pl = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	pl = ((String) rs.getObject(1));
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return pl;	
+    } 
+	    
+	    public String getSpielSpieler2FromId(int spielId) {
+	    	String sql = "SELECT Spieler2 FROM Spiel WHERE id = " + "'" + spielId + "';";
+	    	//System.out.println(sql);
+	    	String pl = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	pl = ((String) rs.getObject(1));
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return pl;	
+    } 
+	    
+	    
 	    public String getMessageFromKatalog(int id, int lang) {
 	    	
 	    	String sql = "";
@@ -572,6 +617,42 @@ public class ServerDatabase {
 	        } catch (SQLException e) {
 	        	System.out.println(e.getMessage());
 	        }  	return spielId;
+	    }
+	    
+	    public void updateSpielStatus(int spielId, String status)  {
+	    	String sql = "UPDATE Spiel set Status=? WHERE id=?";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	            //INSERT Into
+	        	//int id = getNextIdPlayer();	
+	            //int id = 3333;
+	        	//pstmt.setInt(1, 0);
+	            pstmt.setString(1, status);
+	            pstmt.setInt(2, spielId);
+	            pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }  	
+	    }
+	    
+	    public void updateSpielSpieler2(int spielId, String name)  {
+	    	String sql = "UPDATE Spiel set Spieler2=? WHERE id=?";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	            //INSERT Into
+	        	//int id = getNextIdPlayer();	
+	            //int id = 3333;
+	        	//pstmt.setInt(1, 0);
+	            pstmt.setString(1, name);
+	            pstmt.setInt(2, spielId);
+	            pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }  	
 	    }
 	    
 	    
