@@ -1,7 +1,4 @@
 package spielpaket;
-import java.lang.*;
-
-import spielpaket.*;
 
 public class Spiel{
 	int [][] field;//

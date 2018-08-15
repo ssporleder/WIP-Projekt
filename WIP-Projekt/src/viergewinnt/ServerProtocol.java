@@ -3,6 +3,7 @@ package viergewinnt;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
 public class ServerProtocol {
 
 	
@@ -41,6 +42,22 @@ public class ServerProtocol {
 		if (inputLine.equals(bundle.getString("my.11"))) {
 			return(playlist.listeSpiele());
 		}
+				
+      	if (inputLine.length() > 11) {
+		  if (inputLine.substring(0,11).equals("start game:")) {
+			Player pl2 = new Player(playlist.getPlayerId(inputLine.substring(12)), (playlist.getPlayerSocket(inputLine.substring(12))));
+			Player pl1 = new Player(playerId, socket.toString());
+				if (!pl2.name.equals(pl1.name)){	
+					if (pl2.status.equals("Wartend")){
+					  playlist.starteSpiel(pl2.playerId, playerId, pl2.socket, socket);
+					  return(bundle.getString("my.17"));
+					}
+		  			else {return(bundle.getString("my.18"));}
+				}
+				else {return(bundle.getString("my.19"));}
+		  }
+      	}
+		
 		
 		
 		return(bundle.getString("my.12"));

@@ -117,13 +117,11 @@ public class ServerThread extends Thread {
 	      out.println("#");
 	      
 	      while(exit == true){
-	    	  	
 	    	  
-	    	  
-	    	  	//while(pl.status.equals("Wartend")){
+	   
 	    	  	
 	    	  	while(pl.getStatus(playerId).equals("Wartend")){};
-	    	  	while(pl.getStatus(playerId).equals("Spielt")){};
+	    	  
 	    	  	
 	    		if (pl.getStatus(playerId).equals("Online")){
 	    			inputLine = null;
@@ -147,6 +145,49 @@ public class ServerThread extends Thread {
 	    			 break;
 	    			 }
 	    			 
+	    		}
+	    		
+	    		if (pl.getStatus(playerId).equals("Spielt")){
+	    			//Wenn jemand angeschprochen war dann muss er sich entscheiden ob er spielen will
+	    			if (pl.game.status == 0 && pl.status1 == 1){out.println("You have been requested. Do you want to play:[y/n]");
+	    				inputLine = in.readLine();
+	    				inputLine = inputLine.toLowerCase();
+	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.game);pl.game = null;out.println(protocol.help(locale));}
+	    				if (inputLine.equals("y")){playlist.spielAkzeptiert(pl.game);}
+	    			}
+	    		
+	    			if(pl.game != null){
+	    			if (pl.game.status == 0 && pl.status1 == 0){
+	    				//Sieler der fragte muss hier warten bis der andere Spieler seine antwort gibt 
+	    				while(pl.game != null && pl.game.status == 0 && !pl.status.equals("Online")){};
+	    				if (pl.status.equals("Online")){out.println("Player refused");}
+	    			}
+	    			}
+	    			//Das spiel starten und die Spieler mache ihre zuge bis jemang gewonnen hat oder die Spalten voll sind
+	    			if(pl.game != null){
+	    			while (pl.game.status == 1){
+	    				//Spieler wartet bis der ander sein Zug gemacht hat und sein Status1 geendert wird
+	    				if (pl.status1 == 1) {while(pl.status1 == 1){}}
+	    				//Spier Zug
+	    				if (pl.status1 == 0 && pl.game.status == 1) {
+	    				out.println(pl.game.zeigen());//Schreibt die spalten aus
+	    				out.println("Make your move:[number of column 1..7]");
+	    				inputLine = null;
+	    				inputLine = in.readLine();
+	    				out.println(pl.game.aktion(inputLine, pl.name, playlist));//Zug
+	    				}
+	    				else{
+	    					/*Der Spieler der nicht am Zug war erfahrt hier wenn das Spiel endet
+	    					ob er verloren hat oder das Spielfed voll war.*/
+	    					if(pl.wincondition == 0){out.println("You have lost.");}
+	    					else{out.println("The field is full nobody winns");}
+	    				}
+	    			}
+	    			
+	    			}
+	    			
+	    			if(pl.game != null){pl.game = null;}//Zestort das Spiel
+	    		
 	    		}
 	    
 	    	  

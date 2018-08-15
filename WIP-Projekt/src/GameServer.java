@@ -1,7 +1,6 @@
 import java.net.*;
 import java.io.*;
 import viergewinnt.*;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -38,6 +37,8 @@ public class GameServer {
 			//System.out.println("[Server] Erzeuge Tabelle 'MsgKatalog'...");
 			database.initializePlayer();
 			System.out.println("[Server] Bereinige Tabelle 'Spieler'...");
+			database.initializeSpiel();
+			System.out.println("[Server] Bereinige Tabelle 'Spiel'...");
 			//database.initializeMsgKatalog();
     		System.out.println("[Server] Der Server wurde gestartet und an folgenden Socket gebunden: "
 				   + serverSocket.getInetAddress()

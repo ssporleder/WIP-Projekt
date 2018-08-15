@@ -18,7 +18,8 @@ public class Player{
 	public Player(int playerId, String socket){
 		
 		database = new ServerDatabase();
-		this.status = "Online";
+		this.name = getName(playerId);
+		this.status = database.getPlayerStatusFromId(playerId);
 	 	this.socket = socket;
 	 	this.playerId = playerId;
 	 	//this.status = database.getPlayerStatusFromId(playerId);

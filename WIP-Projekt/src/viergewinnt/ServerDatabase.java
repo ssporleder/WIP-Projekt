@@ -194,6 +194,28 @@ public class ServerDatabase {
 		return ergebnis;
     }
     
+    public String getPlayerSocket(String name) {
+    	String sql = "SELECT socket FROM Spieler WHERE name = " + "'" + name + "';";
+    	//System.out.println(sql);
+    	String ergebnis = "";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+    		Statement stmt = conn.createStatement();
+        	ResultSet rs = stmt.executeQuery(sql);
+        	while (rs.next()) {
+        	ergebnis = ((String) rs.getObject(1));
+        	}
+        	//System.out.println(playerId);
+    {
+    }
+    
+    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return ergebnis;
+    }
+    
     public String getPlayerLocale(String name) {
     	String sql = "SELECT locale FROM Spieler WHERE name = " + "'" + name + "';";
     	//System.out.println(sql);
@@ -443,7 +465,7 @@ public class ServerDatabase {
 	    }
 	    
 	    
-	    public int initializePlayer() {
+	    public void initializePlayer() {
 	    	String sql = "SELECT id FROM Spieler WHERE status != 'Offline';";
 	    	String sql2 = "UPDATE Spieler set status='Offline',socket='nicht verbunden' WHERE id=?";
 	    	//System.out.println(sql);
@@ -471,8 +493,38 @@ public class ServerDatabase {
 	    } catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-			return playerId;
+			}
+	    }
+	    
+	    public void initializeSpiel() {
+	    	String sql = "SELECT id FROM Spiel WHERE status != 'Beendet';";
+	    	String sql2 = "UPDATE Spiel set status='abgebrochen' WHERE id=?";
+	    	//System.out.println(sql);
+	    	int id = 0;
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	id = ((Number) rs.getObject(1)).intValue();
+	        	try (Connection conn2 = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql2);
+	            //INSERT Into
+	        	//int id = getNextIdPlayer();	
+	            //int id = 3333;
+	        	//pstmt.setInt(1, 0);
+	            pstmt.setInt(1, id);
+	            pstmt.executeUpdate();
+	        	}
+	        	}
+	        	//System.out.println(playerId);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 	}
 	    }
 	    
     
