@@ -139,7 +139,7 @@ public class Spiel {
 			
 			//horizontal
 			//check right
-			while(x1>0 && feld[x1-1][y1] == sign){
+			.while(x1>0 && feld[x1-1][y1] == sign){
 				x1--;
 				inreihe++; 
 				if(inreihe == 3){return(true);};			
