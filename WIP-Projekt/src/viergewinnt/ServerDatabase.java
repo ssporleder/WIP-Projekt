@@ -64,7 +64,9 @@ public class ServerDatabase {
                 + "	Spieler1 text NOT NULL,\n"
                 + "	Spieler2 text,\n"
                 + "	status text NOT NULL\n,"
-                + " feld text NULL\n"
+                + " feld text NULL\n,"
+                + " unentschieden integer NULL\n,"
+                + " gewinner text NULL\n"
                 + ");";
         }
         
@@ -386,6 +388,59 @@ public class ServerDatabase {
 		return anzahl;
     }
     
+    public void updatePlayerGewonnen(int playerId, int gewonnen)  {
+    	String sql = "UPDATE Spieler set gewonnen=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setInt(1, gewonnen);
+            pstmt.setInt(2, playerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
+    
+    public void updateSpielUnentschieden(int playerId, int unentschieden)  {
+    	String sql = "UPDATE Spiel set unentschieden=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setInt(1, unentschieden);
+            pstmt.setInt(2, playerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
+    
+    public void updatePlayerVerloren(int playerId, int verloren)  {
+    	String sql = "UPDATE Spieler set verloren=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        		PreparedStatement pstmt = conn.prepareStatement(sql);
+            //INSERT Into
+        	//int id = getNextIdPlayer();	
+            //int id = 3333;
+        	//pstmt.setInt(1, 0);
+            pstmt.setInt(1, verloren);
+            pstmt.setInt(2, playerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
     
     public String getPlayerName(int playerId) {
     	String sql = "SELECT name FROM Spieler WHERE id = " + "'" + playerId + "';";
@@ -600,14 +655,18 @@ public class ServerDatabase {
     } 
 	    
 	    public int insertSpiel(String pl1, String status)  {
-	    	String sql = "INSERT INTO Spiel(id,Spieler1,status) VALUES(null,?,?)";
+	    	String sql = "INSERT INTO Spiel(id,Spieler1,status,feld,unentschieden) VALUES(null,?,?,?,?)";
 	    	int spielId = 0;
+	    	int unentschieden = 0;
+	    	String feld = "[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]";
 	    	
 	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
 	        		PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	            //INSERT Into
+	            //INSERT Into     		
 	        	pstmt.setString(1, pl1);
 	            pstmt.setString(2, status);
+	            pstmt.setString(3, feld);
+	            pstmt.setInt(4, unentschieden);
 	            pstmt.executeUpdate();
 	            ResultSet keys = pstmt.getGeneratedKeys();
 	            keys.next();
@@ -637,6 +696,68 @@ public class ServerDatabase {
 	        	System.out.println(e.getMessage());
 	        }  	
 	    }
+	    
+	    public void updateSpielFeld(int spielId, String feld)  {
+	    	String sql = "UPDATE Spiel set feld=? WHERE id=?";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	        		PreparedStatement pstmt = conn.prepareStatement(sql);
+	            //INSERT Into
+	        	//int id = getNextIdPlayer();	
+	            //int id = 3333;
+	        	//pstmt.setInt(1, 0);
+	            pstmt.setString(1, feld);
+	            pstmt.setInt(2, spielId);
+	            pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }  	
+	    }
+	    
+	    public String getSpielFeld(int spielId) {
+	    	String sql = "SELECT feld FROM Spiel WHERE id = " + "'" + spielId + "';";
+	    	//System.out.println(sql);
+	    	String feld = "";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	feld = ((String) rs.getObject(1));
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return feld;	
+    } 
+	  
+	    public int getSpielUnentschieden(int spielId) {
+	    	String sql = "SELECT unentschieden FROM Spiel WHERE id = " + "'" + spielId + "';";
+	    	//System.out.println(sql);
+	    	int unentschieden = 0;
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	    		Statement stmt = conn.createStatement();
+	        	ResultSet rs = stmt.executeQuery(sql);
+	        	while (rs.next()) {
+	        	unentschieden = ((Integer) rs.getObject(1));
+	        	}
+	        	//System.out.println(name);
+	    {
+	    }
+	    
+	    } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return unentschieden;	
+    } 
 	    
 	    public void updateSpielSpieler2(int spielId, String name)  {
 	    	String sql = "UPDATE Spiel set Spieler2=? WHERE id=?";

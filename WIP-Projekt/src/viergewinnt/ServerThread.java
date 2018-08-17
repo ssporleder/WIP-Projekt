@@ -174,7 +174,7 @@ public class ServerThread extends Thread {
 	    						
 	    				Spiel sp = new Spiel(pl.getPlayerSpielId(playerId));
 	    				
-	    				out.println(sp.zeigen());//Schreibt die spalten aus
+	    				out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));//Schreibt die spalten aus
 	    				out.println("Make your move:[number of column 1..7]");
 	    				out.println("#");
 	    				inputLine = null;
@@ -185,14 +185,14 @@ public class ServerThread extends Thread {
 	    				else{
 	    					/*Der Spieler der nicht am Zug war erfahrt hier wenn das Spiel endet
 	    					ob er verloren hat oder das Spielfed voll war.*/
-	    					if(pl.wincondition == 0){out.println("You have lost.");out.println("#");}
+	    					if(database.getSpielUnentschieden(pl.getPlayerSpielId(playerId)) == 0){out.println("You have lost.");out.println("#");}
 	    					else{out.println("The field is full nobody winns");out.println("#");}
 	    				}
 	    			}
 	    			
 	    			}
 	    			
-	    			if(pl.game != null){pl.game = null;}//Zestort das Spiel
+	    			//if(pl.game != null){pl.game = null;}//Zestort das Spiel
 	    		
 	    		}
 	    

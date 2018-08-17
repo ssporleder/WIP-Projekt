@@ -156,7 +156,7 @@ public class PlayerList{
 		
 	}
     
-    //public void sieg(String name1, String name2){
+    public void siegSpieler1(int spielId){
     //	Player pl1 = (Player) players.get(name1);
 	//	Player pl2 = (Player) players.get(name2);
 	//	pl2.status1 = 0;
@@ -164,11 +164,55 @@ public class PlayerList{
 	//	pl1.game.status = 0;
 	//	pl2.status = "Online";	
 	//	pl1.status = "Online";
+    	database.updateSpielStatus(spielId, "Beendet");
+    	database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), "Online");
+		int tmp1 = database.getAnzahlGewonnen(database.getPlayerId(database.getSpielSpieler1FromId(spielId)));
+		int tmp2 = database.getAnzahlVerloren(database.getPlayerId(database.getSpielSpieler2FromId(spielId)));
+		tmp1++;
+		tmp2++;
+		database.updatePlayerGewonnen(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), tmp1);
+		database.updatePlayerVerloren(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), tmp2);
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+		database.updateSpielUnentschieden(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+		
+		
 	//	pl1.anzahlGewonnen++;
 	//	pl2.anzahlVerloren++;
-	//}
+	}
+    
+    public void siegSpieler2(int spielId){
+        //	Player pl1 = (Player) players.get(name1);
+    	//	Player pl2 = (Player) players.get(name2);
+    	//	pl2.status1 = 0;
+    	//	pl1.status1 = 0;
+    	//	pl1.game.status = 0;
+    	//	pl2.status = "Online";	
+    	//	pl1.status = "Online";
+    		database.updateSpielStatus(spielId, "Beendet");
+    		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+    		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
+    		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");
+    		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), "Online");
+    		int tmp1 = database.getAnzahlGewonnen(database.getPlayerId(database.getSpielSpieler2FromId(spielId)));
+    		int tmp2 = database.getAnzahlVerloren(database.getPlayerId(database.getSpielSpieler1FromId(spielId)));
+    		tmp1++;
+    		tmp2++;
+    		database.updatePlayerGewonnen(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), tmp1);
+    		database.updatePlayerVerloren(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), tmp2);
+    		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+    		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+    		database.updateSpielUnentschieden(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+    		
+
+    	//	pl1.anzahlGewonnen++;
+    	//	pl2.anzahlVerloren++;
+    	}
 	
-	//public void keinSieg(String name1, String name2){
+	public void keinSieg(int spielId){
 	//	Player pl1 = (Player) players.get(name1);
 	//	Player pl2 = (Player) players.get(name2);
 	//	pl2.status1 = 0;
@@ -177,6 +221,14 @@ public class PlayerList{
 	//	pl2.status = "Online";	
 	//	pl1.status = "Online";
 	//	pl2.wincondition = 1;
-	//}
+		database.updateSpielStatus(spielId, "Beendet");
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");
+		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), "Online");
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+		database.updatePlayerSpielId(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+		database.updateSpielUnentschieden(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 1);
+	}
 	
 }

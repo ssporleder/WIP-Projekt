@@ -59,27 +59,20 @@ public class Spiel {
 					//Pruft ob die spalte nicht voll ist
 					if (y != -1){
 					feld[x][y] = sign;
-					
-					
-						//System.out.println(s);
-						
-						//Tests
-						int [] feld2;
-						feld2 = new int [7];
-						feld2[1] = 7;
-						System.out.println(Arrays.toString(feld2));
-					
+					database.updateSpielFeld(spielId, serializeFeld(feld));
 						
 						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
 						if (wl == false){
-							//Auskommentier bis vollständig aauf SQL umgestellt.
 							playlist.wechsel(spielId);//verschiebt die Rheienfolge
 							return("Move accepted.");
 						}
 						else {
-							//Auskommentiert bis vollständig auf SQL umgestellt.
-							//playlist.sieg(spieler1,spieler2);return("You win");
+							if (name.equals(spieler1)) {
+							playlist.siegSpieler1(spielId);return("Spieler 1: Du hast gewonnen");
+							} else {
+							playlist.siegSpieler2(spielId);return("Spieler 2: Du hast gewonnen");	
 							}
+						}
 					}
 					if (y == -1){return("This column is already full please enter other row.");};
 				}
@@ -88,8 +81,7 @@ public class Spiel {
 			}
 			//Wen das Feld voll ist gewinnt niemand
 			else{
-				//auskommentiert bis vollständig auf SQL umgestellt.
-				//playlist.keinSieg(spieler1,spieler2);
+				playlist.keinSieg(spielId);
 				return("The field is full nobody wins");}
 			return("");
 		}
@@ -136,6 +128,7 @@ public class Spiel {
 			int x1 = x;
 			int y1 = y;	
 			int inreihe = 0;//vie viel in der rheie sind
+			deserializeFeld(feld, database.getSpielFeld(spielId));
 			
 			//horizontal
 			//check right
@@ -217,7 +210,9 @@ public class Spiel {
 		}
 	
 	//Darstellung des Spielfelds
-		public String zeigen(){
+		public String zeigen(int spielId){
+			deserializeFeld(feld, database.getSpielFeld(spielId));
+			System.out.println(serializeFeld(feld));		
 			String str = new String();
 			for (int i = 0; i < 6; i++){
 				for( int j = 0; j < 7; j++){
