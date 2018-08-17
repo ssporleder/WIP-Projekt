@@ -211,8 +211,7 @@ public class Spiel {
 	
 	//Darstellung des Spielfelds
 		public String zeigen(int spielId){
-			deserializeFeld(feld, database.getSpielFeld(spielId));
-			System.out.println(serializeFeld(feld));		
+			deserializeFeld(feld, database.getSpielFeld(spielId));		
 			String str = new String();
 			for (int i = 0; i < 6; i++){
 				for( int j = 0; j < 7; j++){
