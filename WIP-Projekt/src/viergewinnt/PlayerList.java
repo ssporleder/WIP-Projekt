@@ -1,7 +1,7 @@
 package viergewinnt;
 
 import viergewinnt.Player;
-import viergewinnt.Spiel;
+
 
 
 public class PlayerList{

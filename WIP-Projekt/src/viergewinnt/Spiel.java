@@ -1,7 +1,7 @@
 package viergewinnt;
 
 import java.util.ResourceBundle;
-import java.util.Arrays;
+
 
 //Spiel asdasasd
 public class Spiel {
