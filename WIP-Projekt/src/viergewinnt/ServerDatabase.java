@@ -63,7 +63,8 @@ public class ServerDatabase {
                 + "	id integer PRIMARY KEY,\n"
                 + "	Spieler1 text NOT NULL,\n"
                 + "	Spieler2 text,\n"
-                + "	status text NOT NULL\n"
+                + "	status text NOT NULL\n,"
+                + " feld text NULL\n"
                 + ");";
         }
         

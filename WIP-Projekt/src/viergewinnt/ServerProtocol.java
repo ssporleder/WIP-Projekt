@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 public class ServerProtocol {
 
+	Spiel pl;
 	
 	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist, Locale locale) {
 		

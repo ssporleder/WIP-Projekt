@@ -94,7 +94,7 @@ public class PlayerList{
 		pl1.setAmZugPlayer(playerId2, 0);
 		pl1.setPlayerSpielId(playerId2, pl2.getPlayerSpielId(playerId1));
 		database.updateSpielSpieler2(pl2.getPlayerSpielId(playerId1), pl2.getName(playerId2));
-		//new Spiel(pl1.getName(playerId1),pl2.getName(playerId2));
+		//pl1.game = new Spiel(database.getPlayerSpielId(playerId1));
 		//pl2.game = pl1.game;
 	//	pl1.status = "playing";
 	//	pl2.status = "playing";
@@ -107,7 +107,9 @@ public class PlayerList{
 		pl.setStatusPlayer(playerId,"Wartend");
 		int spielId = database.insertSpiel(name, "Mitspieler gesucht");
 		pl.setPlayerSpielId(playerId, spielId);
-	}
+		//pl.game = new Spiel(database.getPlayerSpielId(playerId));
+	
+}
 		
 	//public void antwort(Spiel ourGame){
 	//	Player pl2 = (Player) players.get(ourGame.spieler2);
@@ -141,15 +143,18 @@ public class PlayerList{
 		
 	}
     
-    //public void wechsel(String name1, String name2){
-	//	int change = 0; 
-	//	Player pl1 = (Player) players.get(name1);
-	//	Player pl2 = (Player) players.get(name2);
-	//	change = pl1.status1;
-	//	pl1.status1 = pl2.status1;
-	//	pl2.status1 = change;
-	//
-	//}
+    public void wechsel(int spielId){
+		int change = 0; 
+		//Player pl1 = (Player) players.get(name1);
+		//Player pl2 = (Player) players.get(name2);
+		//change = pl1.status1; 
+		change = database.getPlayerAmZugFromId(database.getPlayerId(database.getSpielSpieler1FromId(spielId)));
+		//pl1.status1 = pl2.status1;
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), database.getPlayerAmZugFromId(database.getPlayerId(database.getSpielSpieler2FromId(spielId))));
+		//pl2.status1 = change;
+		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), change);
+		
+	}
     
     //public void sieg(String name1, String name2){
     //	Player pl1 = (Player) players.get(name1);

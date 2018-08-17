@@ -25,7 +25,12 @@ public class Player{
 	 	//this.status = database.getPlayerStatusFromId(playerId);
 	 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
 	 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
+	 	//this.game = new Spiel(database.getPlayerSpielId(playerId));
 	 }
+	
+	public Player (Player pl) {
+	}
+	
 
 	public String getName(int playerId) {
 		name = database.getPlayerName(playerId);

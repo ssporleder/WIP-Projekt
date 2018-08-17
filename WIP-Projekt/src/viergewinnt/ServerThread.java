@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.*;
 import viergewinnt.Player;
+import viergewinnt.Spiel;
 
 public class ServerThread extends Thread {
   private Socket socket = null;
@@ -149,38 +150,43 @@ public class ServerThread extends Thread {
 	    		
 	    		if (pl.getStatus(playerId).equals("Spielt")){
 	    			//Wenn Spiel im Zustand "Mitspieler gesucht" und Spieler Attr. "amZug" = 1, dann "Frage ob er spielen möchte":
-	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");
+	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");out.println("#");
 	    				inputLine = in.readLine();
 	    				inputLine = inputLine.toLowerCase();
-	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.getPlayerSpielId(playerId));pl.game = null;out.println(protocol.help(locale));}
+	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.getPlayerSpielId(playerId));pl.game = null;out.println(protocol.help(locale));out.println("#");}
 	    				if (inputLine.equals("y")){playlist.spielAkzeptiert(pl.getPlayerSpielId(playerId));}
 	    			}
 	    		
-	    			if(pl.game != null){
-	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.status1 == 0){
+	    			//if(pl.game != null){
+	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 0){
 	    				//Sieler der fragte muss hier warten bis der andere Spieler seine antwort gibt 
-	    				while(pl.game != null && database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && !pl.getStatus(playerId).equals("Online")){};
+	    				while(database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && !pl.getStatus(playerId).equals("Online")){};
 	    				if (pl.getStatus(playerId).equals("Online")){out.println("Player refused");out.println(protocol.help(locale));}
 	    			}
-	    			}
+	    			//}
 	    			//Das spiel starten und die Spieler mache ihre zuge bis jemang gewonnen hat oder die Spalten voll sind
-	    			if(pl.game != null){
-	    			while (pl.game.status == 1){
+	    			if(database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Gestartet") == true){
+	    			while (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Gestartet") == true){
 	    				//Spieler wartet bis der ander sein Zug gemacht hat und sein Status1 geendert wird
-	    				if (pl.status1 == 1) {while(pl.status1 == 1){}}
+	    				if (pl.getPlayerAmZug(playerId) == 1) {while(pl.getPlayerAmZug(playerId) == 1){}}
 	    				//Spier Zug
-	    				if (pl.status1 == 0 && pl.game.status == 1) {
-	    				out.println(pl.game.zeigen());//Schreibt die spalten aus
+	    				if (pl.getPlayerAmZug(playerId) == 0 && database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Gestartet") == true) {
+	    						
+	    				Spiel sp = new Spiel(pl.getPlayerSpielId(playerId));
+	    				
+	    				out.println(sp.zeigen());//Schreibt die spalten aus
 	    				out.println("Make your move:[number of column 1..7]");
+	    				out.println("#");
 	    				inputLine = null;
 	    				inputLine = in.readLine();
-	    				out.println(pl.game.aktion(inputLine, pl.name, playlist));//Zug
+	    				out.println(sp.aktion(inputLine, pl.name, playlist, pl.getPlayerSpielId(playerId)));//Zug
+	    				out.println("#");
 	    				}
 	    				else{
 	    					/*Der Spieler der nicht am Zug war erfahrt hier wenn das Spiel endet
 	    					ob er verloren hat oder das Spielfed voll war.*/
-	    					if(pl.wincondition == 0){out.println("You have lost.");}
-	    					else{out.println("The field is full nobody winns");}
+	    					if(pl.wincondition == 0){out.println("You have lost.");out.println("#");}
+	    					else{out.println("The field is full nobody winns");out.println("#");}
 	    				}
 	    			}
 	    			

@@ -1,23 +1,31 @@
 package viergewinnt;
 
 import java.util.ResourceBundle;
+import java.util.Arrays;
 
 //Spiel asdasasd
 public class Spiel {
 	int [][] feld;
 	int status;
+	int spielId;
 	String spieler1;
 	String spieler2;
 	ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
+	ServerDatabase database = new ServerDatabase();
 	
-	public Spiel(String spieler1, String spieler2){
+	
+	public Spiel(int spielId){
+		
+		this.spielId = spielId;
 		this.feld = new int [7][6];
 		this.status = 0;
-		this.spieler1 = spieler1;
-		this.spieler2 = spieler2;
+		this.spieler1 = database.getSpielSpieler1FromId(spielId);
+		this.spieler2 = database.getSpielSpieler2FromId(spielId);
 	}
 	
-	public String aktion(String inputLine, String name, PlayerList playlist){
+
+	
+	public String aktion(String inputLine, String name, PlayerList playlist, Integer spielId){
 		int a = 1;//Hilfsvariable die prüft ob die richtige (InputLine) eingegeben worden ist
 		int x = 0;//x-Koordinate. Repräsentiert die Nummer der Spalte in dem Feld
 		int y = -1;//
@@ -36,6 +44,9 @@ public class Spiel {
 			//Prüft, ob das Spielfeld nicht voll ist. Wenn nicht geht es weiter
 			if (voll() == false){
 					
+				
+				
+				
 				//findet heraus welches Zeichen der Spieler am Zug hat
 				if (name.equals(spieler1)){sign = 1;}
 				else {sign = 2;};
@@ -47,11 +58,22 @@ public class Spiel {
 					while(y < 5 && feld[x][y+1] == 0){y = y + 1;};
 					//Pruft ob die spalte nicht voll ist
 					if (y != -1){
-						feld[x][y] = sign;
+					feld[x][y] = sign;
+					
+					
+						//System.out.println(s);
+						
+						//Tests
+						int [] feld2;
+						feld2 = new int [7];
+						feld2[1] = 7;
+						System.out.println(Arrays.toString(feld2));
+					
+						
 						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
 						if (wl == false){
 							//Auskommentier bis vollständig aauf SQL umgestellt.
-							//playlist.wechsel(spieler1,spieler2);//verschiebt die Rheienfolge
+							playlist.wechsel(spielId);//verschiebt die Rheienfolge
 							return("Move accepted.");
 						}
 						else {
@@ -71,6 +93,43 @@ public class Spiel {
 				return("The field is full nobody wins");}
 			return("");
 		}
+
+	private String serializeFeld(int [][] feld)
+	{
+		String s = "";
+		
+		for (int y2 = 0; y2 < 6; y2++)
+		{
+			if (y2 > 0) s += ",";
+			s += "[";
+
+			for (int x2 = 0; x2 < 7; x2++)
+			{
+				if (x2 > 0) s += ",";
+				s += String.valueOf(feld[x2][y2]); 
+			}
+		
+			s += "]"; 
+		}
+		
+		return s;
+	}
+
+	private void deserializeFeld(int [][] feld, String s)
+	{
+		String[] ys = s.substring(1, s.length() - 1).split("],.");
+		
+		for (int y2 = 0; y2 < 6; y2++)
+		{
+			String[] xs = ys[y2].split(","); 
+
+			for (int x2 = 0; x2 < 7; x2++)
+			{
+				feld[x2][y2] = Integer.parseInt(xs[x2]); 
+			}
+		}
+	}
+
 	
 	//Kontrollalgorithmus	
 		private boolean pruefen(int x, int y,int sign){	
