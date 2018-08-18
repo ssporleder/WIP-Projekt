@@ -61,30 +61,24 @@ public class Spiel {
 						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
 						if (wl == false){
 							playlist.wechsel(spielId);//verschiebt die Rheienfolge
-							//TODO Ausgabe übersetzen.
 							return(bundle.getString("my.27"));
 						}
 						else {
 							if (name.equals(spieler1)) {
-								//TODO Ausgabe übersetzen.
 							playlist.siegSpieler1(spielId);return(bundle.getString("my.28"));
 							} else {
-								//TODO Ausgabe übersetzen.
 							playlist.siegSpieler2(spielId);return(bundle.getString("my.29"));	
 							}
 						}
 					}
-					//TODO Ausgabe übersetzen.
 					if (y == -1){return(bundle.getString("my.30"));};
 				}
-				//TODO Ausgabe übersetzen.
 				else{return(bundle.getString("my.31"));};
 			
 			}
 			//Wen das Feld voll ist gewinnt niemand
 			else{
 				playlist.keinSieg(spielId);
-				//TODO Ausgabe übersetzen.
 				return(bundle.getString("my.26"));}
 			return("");
 		}
