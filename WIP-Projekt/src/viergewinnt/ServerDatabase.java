@@ -126,6 +126,34 @@ public class ServerDatabase {
         }  	
     }
     
+    public void updatePlayerPassword(int spielerId, String password)  {
+    	String sql = "UPDATE Spieler set passwort=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        	PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, password);
+            pstmt.setInt(2, spielerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
+    
+    public void updatePlayerLocale(int spielerId, String locale)  {
+    	String sql = "UPDATE Spieler set locale=? WHERE id=?";
+    	
+        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+        	PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, locale);
+            pstmt.setInt(2, spielerId);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }  	
+    }
+    
     public void updatePlayerAmZug(int playerId, int amZug)  {
     	String sql = "UPDATE Spieler set amZug=? WHERE id=?";
     	

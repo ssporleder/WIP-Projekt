@@ -46,6 +46,14 @@ public class Spieler{
 		database.updatePlayerStatus(playerId, status);
 	}
 	
+	public void setStatusPassword(int playerId, String password){
+		database.updatePlayerPassword(playerId, password);
+	}
+	
+	public void setStatusLocale(int playerId, String locale){
+		database.updatePlayerLocale(playerId, locale);
+	}
+	
 	public void setAmZugPlayer(int playerId, int amZug){
 		database.updatePlayerAmZug(playerId, amZug);
 	}

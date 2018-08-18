@@ -79,7 +79,11 @@ public class ServerThread extends Thread {
 	        					this.name = name;
 	        					playerId = this.playlist.getPlayerId(name);
 	        					this.playlist.initPlayer(socket.toString(),name,playerId,tmp_passwort);
-	        					passwortRichtig = true;	        					
+	        					passwortRichtig = true;	 
+	        					Locale locale = new Locale(database.getPlayerLocale(name));
+	        					bundle = ResourceBundle.getBundle("msgkatalog", locale);
+	        		        	out.println("\r\n" + bundle.getString("my.39") + " " + playerId + " " + bundle.getString("my.40") );
+
 		        			} else {
 		        				out.println("\r\n[Server] Die eingegebene Passwort stimmt nicht. Bitte erneut versuchen.");
 		        				out.println("#");
@@ -112,7 +116,7 @@ public class ServerThread extends Thread {
 	      Spieler pl = new Spieler(playerId, socket.toString());
 	      pl.name=this.name;
 	      Locale locale = new Locale(database.getPlayerLocale(name));
-	      out.println(locale);
+	      //out.println(locale);
 	      bundle = ResourceBundle.getBundle("msgkatalog", locale);
 	      out.println(protocol.help(locale));
 	      out.println("#");
@@ -136,7 +140,10 @@ public class ServerThread extends Thread {
 	    			 //Bei Eingabe von "Exit" oder "Quit" wird die Verbindung beendet.
 	    			if (inputLine.equals("exit")) {exit = false; break;}
 	    			if (inputLine.equals("quit")) {exit = false; break;}
-	    			 
+	    			
+	    			//if (inputLine.equals(bundle.getString("my.32")))
+	    		    
+	    				
 	    			//Das eingegebene Kommando wird an die Instanz protocol der Klasse ServerProtocol übergeben und die Ausgabe dargestellt.
 	    			out.println(protocol.processInput(inputLine, playerId, name, this.socket.toString(), playlist, locale));
 	    			out.println("#");
