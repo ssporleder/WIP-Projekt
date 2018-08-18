@@ -42,6 +42,7 @@ public class ServerProtocol {
 		}
 				
       	if (inputLine.length() > 11) {
+      	//TODO "start game" übersetzen.
 		  if (inputLine.substring(0,11).equals("start game:")) {
 			Spieler pl2 = new Spieler(playlist.getPlayerId(inputLine.substring(12)), (playlist.getPlayerSocket(inputLine.substring(12))));
 			Spieler pl1 = new Spieler(playerId, socket.toString());

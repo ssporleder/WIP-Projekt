@@ -3,7 +3,7 @@ package viergewinnt;
 public class Spieler{
 	public String name;
 	public String status;
-	// ToDo Die folgenden Zeilen können vorraussichtlich weg.
+	//TODO Die folgenden Zeilen können vorraussichtlich weg.
 	//public int status1;/*Speichert ob der spieler am zug ist(0) oder warten soll(1), auch beim spiel start nutzlich*/
 	//public int anzahlGewonnen = 0;//Speichert vie oft der Spieler gewonnen hat
 	//public int anzahlVerloren = 0;//Speichert vie oft der Spieler verloren hat
@@ -21,13 +21,14 @@ public class Spieler{
 		this.status = database.getPlayerStatusFromId(playerId);
 	 	this.socket = socket;
 	 	this.playerId = playerId;
-	 	// Todo die folgenden Zeilen können vorraussichtliche weg.
+	 	/* TODO die folgenden Zeilen können vorraussichtliche weg. */
 	 	//this.status = database.getPlayerStatusFromId(playerId);
-	// 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
-	// 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
+	 	//this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
+	 	//this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
 	 	//this.game = new Spiel(database.getPlayerSpielId(playerId));
 	 }
 	
+	// TODO Die folgenden Zeilen können vorraussichtlich weg
 	//public Player (Player pl) {
 	//}
 

@@ -79,7 +79,8 @@ public class SpielListe{
 		int spielId = database.insertSpiel(name, "Mitspieler gesucht");
 		pl.setPlayerSpielId(playerId, spielId);
 }
-		
+	
+	//TODO kann vermutlich irgendwann weg
 	//public void antwort(Spiel ourGame){
 	//	Player pl2 = (Player) players.get(ourGame.spieler2);
 	//	Player pl1 = (Player)  players.get(ourGame.spieler1);
