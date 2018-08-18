@@ -151,22 +151,21 @@ public class ServerThread extends Thread {
 	    		//Sobald der zweite Spieler einem Spiel Beitritt beginnt hier die eigentliche Spiellogik
 	    		if (pl.getStatus(playerId).equals("Spielt")){
 	    			//Wenn sich das Spiel im Zustand "Mitspieler gesucht" befindet und der Spieler in der Spalte "amZug" = 1 ist, dann wird gefragt, ob er das Spiel spielen möchte:
-	    			//TODO Ausgabe übersetzen.
-	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println("You have been requested. Do you want to play:[y/n]");out.println("#");
+	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println(bundle.getString("my.21"));out.println("#");
 	    				inputLine = in.readLine();
 	    				inputLine = inputLine.toLowerCase();
 	    				//Ablehnung des Spielers und somit wird das Spiel beendet.
 	    				if (inputLine.equals("n")){playlist.spielAbgelehnt(pl.getPlayerSpielId(playerId));
 	    				out.println(protocol.help(locale));out.println("#");}
 	    				//Zustimmung des Spielers und somit Spielstart.
-	    				if (inputLine.equals("y")){playlist.spielAkzeptiert(pl.getPlayerSpielId(playerId));}
+	    				if (inputLine.equals(bundle.getString("my.22"))){playlist.spielAkzeptiert(pl.getPlayerSpielId(playerId));}
 	    			}
 	    		
 	    			//In dieser Bedingung und Schleife landet der anfragende Spieler und wartet auf die Entscheidung des angefragten Spielers.
 	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 0){
 	    				while(database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && !pl.getStatus(playerId).equals("Online")){};
-	    				//TODO Ausgabe übersetzen.
-	    				if (pl.getStatus(playerId).equals("Online")){out.println("Player refused");out.println(protocol.help(locale));out.println("#");}
+	    				//Spieler hat abgelehnt.
+	    				if (pl.getStatus(playerId).equals("Online")){out.println(bundle.getString("my.23"));out.println(protocol.help(locale));out.println("#");}
 	    			}
 	    			
 	    			//Hier beginnt das Spiel. Es wird nacheinander um Zug gebeten.
@@ -182,8 +181,7 @@ public class ServerThread extends Thread {
 	    						//Das Spielfeld wird ausgegeben.
 	    						out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
 	    						//Der Spieler wird um den Zug gebeten.
-	    						//TODO Ausgabe übersetzen.
-	    						out.println("Make your move:[number of column 1..7]");
+	    						out.println(bundle.getString("my.24"));
 	    						out.println("#");
 	    						inputLine = null;
 	    						inputLine = in.readLine();
@@ -193,10 +191,8 @@ public class ServerThread extends Thread {
 	    					}	
 	    					else{
 	    					//Der Spieler der nicht am Zug war, erfährt hier bei Beendigung des Spiels, ob er verloren hat oder ob das Spiel unentschieden ausgegangen ist (Spielfed voll)
-	    						//TODO Ausgabe übersetzen.
-	    					if(database.getSpielUnentschieden(pl.getPlayerSpielId(playerId)) == 0){out.println("You have lost.");out.println("#");}
-	    					//TODO Ausgabe übersetzen.
-	    					else{out.println("The field is full nobody winns");out.println("#");}
+	    					if(database.getSpielUnentschieden(pl.getPlayerSpielId(playerId)) == 0){out.println(bundle.getString("my.25"));out.println("#");}
+	    					else{out.println(bundle.getString("my.26"));out.println("#");}
 	    					}
 	    				}
 	    			}
