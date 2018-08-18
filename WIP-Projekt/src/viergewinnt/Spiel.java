@@ -62,30 +62,30 @@ public class Spiel {
 						if (wl == false){
 							playlist.wechsel(spielId);//verschiebt die Rheienfolge
 							//TODO Ausgabe übersetzen.
-							return("Move accepted.");
+							return(bundle.getString("my.27"));
 						}
 						else {
 							if (name.equals(spieler1)) {
 								//TODO Ausgabe übersetzen.
-							playlist.siegSpieler1(spielId);return("Spieler 1: Du hast gewonnen");
+							playlist.siegSpieler1(spielId);return(bundle.getString("my.28"));
 							} else {
 								//TODO Ausgabe übersetzen.
-							playlist.siegSpieler2(spielId);return("Spieler 2: Du hast gewonnen");	
+							playlist.siegSpieler2(spielId);return(bundle.getString("my.29"));	
 							}
 						}
 					}
 					//TODO Ausgabe übersetzen.
-					if (y == -1){return("This column is already full please enter other row.");};
+					if (y == -1){return(bundle.getString("my.30"));};
 				}
 				//TODO Ausgabe übersetzen.
-				else{return("You entered wrong number");};
+				else{return(bundle.getString("my.31"));};
 			
 			}
 			//Wen das Feld voll ist gewinnt niemand
 			else{
 				playlist.keinSieg(spielId);
 				//TODO Ausgabe übersetzen.
-				return("The field is full nobody wins");}
+				return(bundle.getString("my.26"));}
 			return("");
 		}
 
