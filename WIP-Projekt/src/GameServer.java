@@ -10,7 +10,7 @@ public class GameServer {
     		boolean listening = true;
     		PlayerList playlist = new PlayerList();
     		ServerDatabase database = new ServerDatabase();
-    		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
+    		//ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
     		
     		try {
       		serverSocket = new ServerSocket(10000);
@@ -25,7 +25,7 @@ public class GameServer {
     		//Bei jedem Start des GameServers wird die Datenbank erstellt, sofern diese noch nicht existiert.
     		//Es werden die notwendigen Tabellen angelegt und hierbei auch Tabellen bereinigt.
 			database.createNewDatabase();
-			System.out.println(bundle.getString("[Server] Erstelle Datenbank..."));
+			System.out.println("[Server] Erstelle Datenbank...");
 			database.createNewTable("Spieler");
 			System.out.println("[Server] Erzeuge Tabelle 'Spieler'...");
 			database.createNewTable("Spiel");
