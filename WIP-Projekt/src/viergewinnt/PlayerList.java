@@ -113,6 +113,7 @@ public class PlayerList{
     
     public void siegSpieler1(int spielId){
     	database.updateSpielStatus(spielId, "Beendet");
+    	database.updateSpielGewinner(spielId, database.getSpielSpieler1FromId(spielId));
     	database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
 		database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
 		database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");
@@ -130,6 +131,7 @@ public class PlayerList{
     
     public void siegSpieler2(int spielId){
     	database.updateSpielStatus(spielId, "Beendet");
+    	database.updateSpielGewinner(spielId, database.getSpielSpieler2FromId(spielId));
     	database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
     	database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);	
     	database.updatePlayerStatus(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), "Online");

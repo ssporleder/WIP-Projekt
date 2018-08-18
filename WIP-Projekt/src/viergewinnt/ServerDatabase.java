@@ -464,14 +464,14 @@ public class ServerDatabase {
     }    
 	    
 	    public String listeSpieler() {
-	    	String sql = "SELECT name, status, socket, gewonnen, verloren FROM Spieler;";
+	    	String sql = "SELECT name, status, socket, gewonnen, verloren, spielId FROM Spieler;";
 	    	String name = "";
 	    	
 	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
 	    		Statement stmt = conn.createStatement();
 	        	ResultSet rs = stmt.executeQuery(sql);
 	        	while (rs.next()) {
-	        	name = name + "Name: " + ((String) rs.getObject(1)) + " Status: " + ((String) rs.getObject(2))+ " Socket: " + ((String) rs.getObject(3))+ " Gewonnen/Verloren: " + ((Integer) rs.getObject(4)) + "/" + ((Integer) rs.getObject(5)) + "\r\n";
+	        	name = name + "[Server] Name: " + ((String) rs.getObject(1)) + " Status: " + ((String) rs.getObject(2))+ " Socket: " + ((String) rs.getObject(3))+ " Gewonnen/Verloren: " + ((Integer) rs.getObject(4)) + "/" + ((Integer) rs.getObject(5)) + " Befindet sich im Spiel: " + ((Integer) rs.getObject(5)) + "\r\n";
 	        	}
 	    {
 	    }
@@ -483,14 +483,14 @@ public class ServerDatabase {
 	    }    
 	    
 	    public String listeSpiele() {
-	    	String sql = "SELECT id, Spieler1, Spieler2, status FROM Spiel;";
+	    	String sql = "SELECT id, Spieler1, Spieler2, status, gewinner FROM Spiel;";
 	    	String ergebnis = "";
 	    	
 	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
 	    		Statement stmt = conn.createStatement();
 	        	ResultSet rs = stmt.executeQuery(sql);
 	        	while (rs.next()) {
-	        	ergebnis = ergebnis + "SpielID: " + ((Integer) rs.getObject(1)) + " Spieler1: " + ((String) rs.getObject(2))+ " Spieler2: " + ((String) rs.getObject(3))+ " Status: " + ((String) rs.getObject(4)) + "\r\n";
+	        	ergebnis = ergebnis + "[Server] SpielID: " + ((Integer) rs.getObject(1)) + " Spieler1: " + ((String) rs.getObject(2))+ " Spieler2: " + ((String) rs.getObject(3)) + " Status: " + ((String) rs.getObject(4)) + " Gewinner: " + ((String) rs.getObject(5)) + "\r\n";
 	        	}
 	    {
 	    }
@@ -532,6 +532,20 @@ public class ServerDatabase {
 	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
 	        	PreparedStatement pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, status);
+	            pstmt.setInt(2, spielId);
+	            pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	        	System.out.println(e.getMessage());
+	        }  	
+	    }
+	    
+	    public void updateSpielGewinner(int spielId, String spieler)  {
+	    	String sql = "UPDATE Spiel set gewinner=? WHERE id=?";
+	    	
+	        try (Connection conn = DriverManager.getConnection(dbUrl)) {
+	        	PreparedStatement pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, spieler);
 	            pstmt.setInt(2, spielId);
 	            pstmt.executeUpdate();
 	            

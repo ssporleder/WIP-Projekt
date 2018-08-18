@@ -2,8 +2,6 @@ package viergewinnt;
 
 import java.util.ResourceBundle;
 
-
-//Spiel asdasasd
 public class Spiel {
 	int [][] feld;
 	int status;
@@ -12,7 +10,6 @@ public class Spiel {
 	String spieler2;
 	ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
 	ServerDatabase database = new ServerDatabase();
-	
 	
 	public Spiel(int spielId){
 		
