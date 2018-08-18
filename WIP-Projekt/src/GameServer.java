@@ -3,18 +3,14 @@ import java.io.*;
 import viergewinnt.*;
 import java.util.ResourceBundle;
 
-
 public class GameServer {
-//test	
  
   	public static void main(String[] args) throws IOException {
     		ServerSocket serverSocket = null;
     		boolean listening = true;
     		PlayerList playlist = new PlayerList();
     		ServerDatabase database = new ServerDatabase();
-    		//Locale.setDefault(new Locale("en", "EN"));
     		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
-    		//System.out.println(bundle.getString("my.1"));
     		
     		try {
       		serverSocket = new ServerSocket(10000);
@@ -22,34 +18,28 @@ public class GameServer {
       		
     		}
 		catch (IOException e) {
-      			//System.err.println("[Server] Port 10000 kann nicht geöffnet werden.");
-				System.err.println(bundle.getString("my.2"));
+      			System.err.println("[Server] Port 10000 kann nicht geöffnet werden.");
 				System.exit(-1);
 		}
 
+    		//Bei jedem Start des GameServers wird die Datenbank erstellt, sofern diese noch nicht existiert.
+    		//Es werden die notwendigen Tabellen angelegt und hierbei auch Tabellen bereinigt.
 			database.createNewDatabase();
-			System.out.println(bundle.getString("my.3"));
+			System.out.println(bundle.getString("[Server] Erstelle Datenbank..."));
 			database.createNewTable("Spieler");
 			System.out.println("[Server] Erzeuge Tabelle 'Spieler'...");
 			database.createNewTable("Spiel");
 			System.out.println("[Server] Erzeuge Tabelle 'Spiel'...");
-			//database.createNewTable("msgkatalog");
-			//System.out.println("[Server] Erzeuge Tabelle 'MsgKatalog'...");
 			database.initializePlayer();
 			System.out.println("[Server] Bereinige Tabelle 'Spieler'...");
 			database.initializeSpiel();
 			System.out.println("[Server] Bereinige Tabelle 'Spiel'...");
-			//database.initializeMsgKatalog();
     		System.out.println("[Server] Der Server wurde gestartet und an folgenden Socket gebunden: "
 				   + serverSocket.getInetAddress()
 				   +":"+serverSocket.getLocalPort() );
-
-				//database.getPlayerId("pxcxcx");
-				//Test um zu verifizieren dass die Methode insertPlayer funktioniert
-				//database.insertPlayer(1,"tester","Online");
-				//database.getPlayerId("asdasdasd");
 				  
     		while (listening) {
+    			//Durch diesen Aufruf wird ein ServerThread erstellt, welcher auf die Verbindungen von den Spielern wartet.
       			new ServerThread(serverSocket.accept(), playlist).start();
       			
     		}	
