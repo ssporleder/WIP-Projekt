@@ -8,7 +8,7 @@ public class ServerProtocol {
 
 	Spiel pl;
 	
-	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist, Locale locale) {
+	public String processInput (String inputLine, int playerId, String name, String socket, SpielListe playlist, Locale locale) {
 		
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
 		
@@ -43,8 +43,8 @@ public class ServerProtocol {
 				
       	if (inputLine.length() > 11) {
 		  if (inputLine.substring(0,11).equals("start game:")) {
-			Player pl2 = new Player(playlist.getPlayerId(inputLine.substring(12)), (playlist.getPlayerSocket(inputLine.substring(12))));
-			Player pl1 = new Player(playerId, socket.toString());
+			Spieler pl2 = new Spieler(playlist.getPlayerId(inputLine.substring(12)), (playlist.getPlayerSocket(inputLine.substring(12))));
+			Spieler pl1 = new Spieler(playerId, socket.toString());
 				if (!pl2.name.equals(pl1.name)){	
 					if (pl2.status.equals("Wartend")){
 					  playlist.starteSpiel(pl2.playerId, playerId, pl2.socket, socket);

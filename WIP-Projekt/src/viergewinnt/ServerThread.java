@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io.*;
-import viergewinnt.Player;
+import viergewinnt.Spieler;
 import viergewinnt.Spiel;
 
 public class ServerThread extends Thread {
@@ -14,11 +14,11 @@ public class ServerThread extends Thread {
   boolean authentifiziert = false;
   boolean bereitsVerbunden = false;
   boolean passwortRichtig = false;
-  PlayerList playlist; 
+  SpielListe playlist; 
   ServerDatabase database;
   ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
   
-  public  ServerThread(Socket socket, PlayerList playlist) {
+  public  ServerThread(Socket socket, SpielListe playlist) {
     super("ServerThread");
     this.socket = socket;
     this.playlist = playlist;
@@ -109,7 +109,7 @@ public class ServerThread extends Thread {
       
 	      //Ab hier ist der Spieler verbunden, authentifiziert und es wird die Hilfe ausgegeben
 	      
-	      Player pl = new Player(playerId, socket.toString());
+	      Spieler pl = new Spieler(playerId, socket.toString());
 	      pl.name=this.name;
 	      Locale locale = new Locale(database.getPlayerLocale(name));
 	      out.println(locale);

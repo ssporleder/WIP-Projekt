@@ -1,12 +1,12 @@
 package viergewinnt;
 
-public class Player{
-	public String name;//Spieler name
-	public String status;//Spieler status('Waiting','Playing','Online')
-	public int status1;/*Speichert ob der spieler am zug ist(0) oder warten soll(1),
-			   auch beim spiel start nutzlich*/
-	public int anzahlGewonnen = 0;//Speichert vie oft der Spieler gewonnen hat
-	public int anzahlVerloren = 0;//Speichert vie oft der Spieler verloren hat
+public class Spieler{
+	public String name;
+	public String status;
+	// ToDo Die folgenden Zeilen können vorraussichtlich weg.
+	//public int status1;/*Speichert ob der spieler am zug ist(0) oder warten soll(1), auch beim spiel start nutzlich*/
+	//public int anzahlGewonnen = 0;//Speichert vie oft der Spieler gewonnen hat
+	//public int anzahlVerloren = 0;//Speichert vie oft der Spieler verloren hat
 	//public int wincondition =0;/*Hilfs Variable diespeichert ob der spieler verloren hat oder es eine Remize var*/
 	public String socket;
 	public int playerId;
@@ -14,21 +14,22 @@ public class Player{
 	public Spiel game;//Spiel
 	
 	//Erzeugt einen Spieler	
-	public Player(int playerId, String socket){
+	public Spieler(int playerId, String socket){
 		
 		database = new ServerDatabase();
 		this.name = getName(playerId);
 		this.status = database.getPlayerStatusFromId(playerId);
 	 	this.socket = socket;
 	 	this.playerId = playerId;
+	 	// Todo die folgenden Zeilen können vorraussichtliche weg.
 	 	//this.status = database.getPlayerStatusFromId(playerId);
-	 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
-	 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
+	// 	this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
+	// 	this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
 	 	//this.game = new Spiel(database.getPlayerSpielId(playerId));
 	 }
 	
-	public Player (Player pl) {
-	}
+	//public Player (Player pl) {
+	//}
 
 	public String getName(int playerId) {
 		name = database.getPlayerName(playerId);

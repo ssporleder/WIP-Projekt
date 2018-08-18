@@ -22,7 +22,7 @@ public class Spiel {
 	
 
 	
-	public String aktion(String inputLine, String name, PlayerList playlist, Integer spielId){
+	public String aktion(String inputLine, String name, SpielListe playlist, Integer spielId){
 		int a = 1;//Hilfsvariable die prüft ob die richtige (InputLine) eingegeben worden ist
 		int x = 0;//x-Koordinate. Repräsentiert die Nummer der Spalte in dem Feld
 		int y = -1;//

@@ -1,11 +1,11 @@
 package viergewinnt;
 
-import viergewinnt.Player;
+import viergewinnt.Spieler;
 
-public class PlayerList{
+public class SpielListe{
 	ServerDatabase database;
 	
-	public PlayerList(){
+	public SpielListe(){
 		database = new ServerDatabase();
 	}
 	
@@ -63,8 +63,8 @@ public class PlayerList{
 	}
     
     public void starteSpiel(int playerId1, int playerId2, String socket1, String socket2){
-    	Player pl2 = new Player(playerId1, socket1);
-    	Player pl1 = new Player(playerId2, socket2);
+    	Spieler pl2 = new Spieler(playerId1, socket1);
+    	Spieler pl1 = new Spieler(playerId2, socket2);
 		pl1.setStatusPlayer(playerId1, "Spielt");
 		pl2.setStatusPlayer(playerId2, "Spielt");
 		pl2.setAmZugPlayer(playerId1, 1);
@@ -74,7 +74,7 @@ public class PlayerList{
 	}
 	
 	public void spielErstellen(String name, int playerId, String socket){
-		Player pl = new Player(playerId, socket.toString());
+		Spieler pl = new Spieler(playerId, socket.toString());
 		pl.setStatusPlayer(playerId,"Wartend");
 		int spielId = database.insertSpiel(name, "Mitspieler gesucht");
 		pl.setPlayerSpielId(playerId, spielId);
