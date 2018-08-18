@@ -7,8 +7,7 @@ public class Player{
 			   auch beim spiel start nutzlich*/
 	public int anzahlGewonnen = 0;//Speichert vie oft der Spieler gewonnen hat
 	public int anzahlVerloren = 0;//Speichert vie oft der Spieler verloren hat
-	public int wincondition =0;/*Hilfs Variable diespeichert ob der spieler 
-				   verloren hat oder es eine Remize var*/
+	//public int wincondition =0;/*Hilfs Variable diespeichert ob der spieler verloren hat oder es eine Remize var*/
 	public String socket;
 	public int playerId;
 	ServerDatabase database;
@@ -30,7 +29,6 @@ public class Player{
 	
 	public Player (Player pl) {
 	}
-	
 
 	public String getName(int playerId) {
 		name = database.getPlayerName(playerId);

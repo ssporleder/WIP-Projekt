@@ -10,10 +10,7 @@ public class ServerProtocol {
 	
 	public String processInput (String inputLine, int playerId, String name, String socket, PlayerList playlist, Locale locale) {
 		
-		//database = new ServerDatabase();
-		//Locale locale = new Locale(database.getPlayerLocale(name));
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
-		
 		
 		if (inputLine.equals(bundle.getString("my.4"))) {
 			return (help(locale));
@@ -66,52 +63,22 @@ public class ServerProtocol {
 	          
 	//Die folgenden Befehle stehen zur Verfügung und werden über 'hilfe' angezeigt.
 	public String help(Locale locale) {
-
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
-		/*return ("[Server] Folgende Befehle stehen zur Verfuegung:\r\n"
-	        	 +"[Server] 'hilfe' um diese Hilfe anzuzeigen\r\n"
-	        	 +"[Server] 'spiel' zeigt das Spielmenue an.\r\n"
-				 +"[Server] 'einstellungen' um die Einstellungsmoeglichkeiten anzuzeigen\r\n"
-	        	 +"[Server] 'version' um eine Ausgabe zur Version, Autor, Impressum und Kontakt zu erhalten\r\n"
-				 +"[Server] 'exit' oder 'quit' beendet die Verbindung.\r\n"
-	             );*/
 		return(bundle.getString("my.13"));
 	}	
 
 	public String version(Locale locale) {
-		
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
-		
-		/*return ("[Server] Programmname: 4Gewinnt\r\n"
-	        	 +"[Server] Version: 0.1\r\n"
-	        	 +"[Server] Autoren: Thomas Burmeister, Alexander Franke, Patrick Ostapowicz, Paul Siemens, Sebastian Sporleder\r\n"
-				 +"[Server] Impressum: \r\n"
-				 +"[Server] Kontakt: \r\n"
-	             );*/
 		return(bundle.getString("my.14"));
 	}
 	
 	public String einstellungen(Locale locale) {
-		
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
-		
-		/*return ("[Server] Folgende Einstellungen stehen zur Verfuegung:\r\n"
-	           +"[Server] 'passwort' Passwortaenderung\r\n"
-	           +"[Server] 'sprache' Festlegung der ausgegebenen Sprache\r\n"
-		       );*/
 		return(bundle.getString("my.15"));
-
 	}
 	
 	public String spiel(Locale locale) {
-		
 		ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog", locale);
-		
-		/*return ("[Server] 'spieler' Spiel gegen Spieler starten\r\n"
-	           +"[Server] 'computer' Spiel gegen Computer starten\r\n"
-	           +"[Server] 'liste spieler' Listet die verbundenen Spieler auf\r\n"
-	           +"[Server] 'liste spiele' Listet die laufenden Spiele auf\r\n"
-		       );*/
 		return(bundle.getString("my.16"));
 
 	}

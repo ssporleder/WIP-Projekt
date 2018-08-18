@@ -1,7 +1,6 @@
 import java.net.*;
 import java.io.*;
 import viergewinnt.*;
-import java.util.ResourceBundle;
 
 public class GameServer {
  
@@ -10,7 +9,6 @@ public class GameServer {
     		boolean listening = true;
     		PlayerList playlist = new PlayerList();
     		ServerDatabase database = new ServerDatabase();
-    		//ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
     		
     		try {
       		serverSocket = new ServerSocket(10000);
