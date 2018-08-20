@@ -53,7 +53,7 @@ public class ServerThread extends Thread {
 		      out.println("[Server] Bitte geben Sie einen Spielernamen ein: ");
 		      //Durch die Ausgabe von "#" wird dem SpielClient das Ende der Übertragung signalisiert.
 		      out.println("#");
-	      	  name = in.readLine();
+	      	  name = in.readLine().toLowerCase();
 
 	        	if (playlist.spielerNichtVerbunden(name) == true) {
 	        		bereitsVerbunden = true;
@@ -73,7 +73,7 @@ public class ServerThread extends Thread {
 	        		//Schleife zur Überprüfung des Passworts
 	        		while(passwortRichtig == false) {
 	        			String tmp_passwort;
-	        			tmp_passwort = in.readLine();
+	        			tmp_passwort = in.readLine().toLowerCase();
 	        			String tmp = playlist.getPlayerPasswort(playerId);
 	        				if(tmp.equals(tmp_passwort) == true){
 	        					this.name = name;
@@ -97,7 +97,7 @@ public class ServerThread extends Thread {
         		
         		out.println("\r\n[Server] Bitte legen Sie ein Passwort fest:");
         		out.println("#");
-        		passwort = in.readLine();
+        		passwort = in.readLine().toLowerCase();
         		playerId = this.playlist.newplayer(socket.toString(),name,playerId,passwort);
 
 	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: " + name + "\n\r[Server] Die SpielerID lautet: " + playerId + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
@@ -186,6 +186,7 @@ public class ServerThread extends Thread {
 	    						Spiel sp = new Spiel(pl.getPlayerSpielId(playerId));
 	    				
 	    						//Das Spielfeld wird ausgegeben.
+	    						out.println(bundle.getString("my.41"));
 	    						out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
 	    						//Der Spieler wird um den Zug gebeten.
 	    						out.println(bundle.getString("my.24"));
@@ -194,6 +195,8 @@ public class ServerThread extends Thread {
 	    						inputLine = in.readLine();
 	    						//Der Zug wird an die Spielklasse gegeben und auf Rückmeldung der Klasse gewartet.
 	    						out.println(sp.aktion(inputLine, pl.name, playlist, pl.getPlayerSpielId(playerId)));
+	    						out.println(bundle.getString("my.42"));
+	    						out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
 	    						out.println("#");
 	    					}	
 	    					else{
