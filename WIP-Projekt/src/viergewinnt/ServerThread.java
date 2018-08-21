@@ -172,7 +172,7 @@ public class ServerThread extends Thread {
 	    			}	 
 	    		}
 	    		
-	    		//Sobald der zweite Spieler einem Spiel Beitritt beginnt hier die eigentliche Spiellogik
+	    		//Spiel gegen anderen Spieler: Sobald der zweite Spieler einem Spiel Beitritt beginnt hier die eigentliche Spiellogik
 	    		if (pl.getStatus(playerId).equals("Spielt")){
 	    			//Wenn sich das Spiel im Zustand "Mitspieler gesucht" befindet und der Spieler in der Spalte "amZug" = 1 ist, dann wird gefragt, ob er das Spiel spielen möchte:
 	    			if (database.getSpielStatusFromId(pl.getPlayerSpielId(playerId)).equals("Mitspieler gesucht") == true && pl.getPlayerAmZug(playerId) == 1){out.println(bundle.getString("my.21"));out.println("#");
@@ -223,7 +223,39 @@ public class ServerThread extends Thread {
 	    					}
 	    				}
 	    			}
-	    		}    	  
+	    		}
+	    		
+	    		//Erste Vorbereitungen für ein Spiel gegen den Computer
+	    		if (pl.getStatus(playerId).equals("Spielt gegen Computer")){
+	    			
+	    			while(pl.getStatus(playerId).equals("Spielt gegen Computer")){
+	    			Spiel sp = new Spiel(pl.getPlayerSpielId(playerId));
+    				
+					//Das Spielfeld wird ausgegeben.
+					out.println(bundle.getString("my.41"));
+					out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
+					//Der Spieler wird um den Zug gebeten.
+					out.println(bundle.getString("my.24"));
+					out.println("#");
+					inputLine = null;
+					inputLine = in.readLine();
+					//Der Zug wird an die Spielklasse gegeben und auf Rückmeldung der Klasse gewartet.
+					out.println(sp.aktion(inputLine, pl.name, playlist, pl.getPlayerSpielId(playerId)));
+					out.println(bundle.getString("my.42"));
+					out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
+					
+					
+					//hier macht dann computer den Zug.
+					
+					out.println("[Server] computer ist am Zug...");
+					out.println(sp.aktion("5", "computer", playlist, pl.getPlayerSpielId(playerId)));
+					out.println(sp.zeigen(pl.getPlayerSpielId(playerId)));
+					
+					
+	    			}
+	    			
+	    		}
+	    		
 	      }
 	    	    
 	      out.println("[Server] Auf wiedersehen.");

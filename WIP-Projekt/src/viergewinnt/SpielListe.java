@@ -78,7 +78,15 @@ public class SpielListe{
 		pl.setStatusPlayer(playerId,"Wartend");
 		int spielId = database.insertSpiel(name, "Mitspieler gesucht");
 		pl.setPlayerSpielId(playerId, spielId);
-}
+	}
+
+	public void spielErstellenComputer(String name, int playerId, String socket){
+		Spieler pl = new Spieler(playerId, socket.toString());
+		pl.setStatusPlayer(playerId,"Spielt gegen Computer");
+		int spielId = database.insertSpiel(name, "Schwierigkeitsgrad wird eingestellt");
+		pl.setPlayerSpielId(playerId, spielId);
+		database.updateSpielSpieler2(spielId, "computer");
+	}
 	
 	//TODO kann vermutlich irgendwann weg
 	//public void antwort(Spiel ourGame){

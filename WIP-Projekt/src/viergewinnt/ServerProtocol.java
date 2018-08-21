@@ -33,6 +33,11 @@ public class ServerProtocol {
 			return(bundle.getString("my.9"));
 		}
 		
+		if (inputLine.equals("computer")){
+			playlist.spielErstellenComputer(name, playerId, socket);
+			return(bundle.getString("my.43"));
+		}
+		
 		if (inputLine.equals(bundle.getString("my.10"))) {
 			return(playlist.listeSpieler());
 		} 
