@@ -17,8 +17,9 @@ public static void main(String[] args) throws IOException
 
     try{
     	System.out.println("[Client] Verbinde zu Server....");
-        sock = new java.net.Socket("192.168.2.119",10000);
-        out = new PrintWriter(sock.getOutputStream(), true);
+        //sock = new java.net.Socket("192.168.2.119",10000);
+    	sock = new java.net.Socket("localhost",10000);
+    	out = new PrintWriter(sock.getOutputStream(), true);
         //out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream()));
         in = new Scanner(new BufferedReader(new InputStreamReader(sock.getInputStream())));
         //sIn = new Scanner(System.in);

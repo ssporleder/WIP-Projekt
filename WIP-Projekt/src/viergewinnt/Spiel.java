@@ -1,5 +1,6 @@
 package viergewinnt;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Spiel {
@@ -28,6 +29,8 @@ public class Spiel {
 		int y = -1;//
 		int sign =0;//
 		boolean wl;//
+		Locale locale = new Locale(database.getPlayerLocale(name));
+		bundle = ResourceBundle.getBundle("msgkatalog", locale);
 		
 	//Entscheidet Anhand der InputLine um welche Spalte es sich	handelt			
 			if (inputLine.equals("1")){x = 0;a = 0;}
@@ -41,9 +44,6 @@ public class Spiel {
 			//Prüft, ob das Spielfeld nicht voll ist. Wenn nicht geht es weiter
 			if (voll() == false){
 					
-				
-				
-				
 				//findet heraus welches Zeichen der Spieler am Zug hat
 				if (name.equals(spieler1)){sign = 1;}
 				else {sign = 2;};
@@ -119,7 +119,6 @@ public class Spiel {
 		}
 	}
 
-	
 	//Kontrollalgorithmus	
 		private boolean pruefen(int x, int y,int sign){	
 			int x1 = x;

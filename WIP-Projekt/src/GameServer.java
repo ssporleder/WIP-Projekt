@@ -12,8 +12,7 @@ public class GameServer {
     		
     		try {
       		serverSocket = new ServerSocket(10000);
-      		
-      		
+	
     		}
 		catch (IOException e) {
       			System.err.println("[Server] Port 10000 kann nicht geöffnet werden.");

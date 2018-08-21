@@ -67,8 +67,8 @@ public class SpielListe{
     	Spieler pl1 = new Spieler(playerId2, socket2);
 		pl1.setStatusPlayer(playerId1, "Spielt");
 		pl2.setStatusPlayer(playerId2, "Spielt");
-		pl2.setAmZugPlayer(playerId1, 1);
 		pl1.setAmZugPlayer(playerId2, 0);
+		pl2.setAmZugPlayer(playerId1, 1);
 		pl1.setPlayerSpielId(playerId2, pl2.getPlayerSpielId(playerId1));
 		database.updateSpielSpieler2(pl2.getPlayerSpielId(playerId1), pl2.getName(playerId2));
 	}
@@ -91,6 +91,15 @@ public class SpielListe{
 	//}
 
 	public void spielAkzeptiert(int spielId){
+		//Durch diese zufallsZahl wird mit einer Chance von 50:50 festgelegt wer beginnt.
+		int zufallsZahl = (Math.random()<0.5)?0:1;
+		if (zufallsZahl == 0) {
+			database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 1);
+			database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 0);
+		} else {
+			database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler1FromId(spielId)), 0);
+			database.updatePlayerAmZug(database.getPlayerId(database.getSpielSpieler2FromId(spielId)), 1);
+		}
 		String status = "Gestartet";
 		database.updateSpielStatus(spielId, status);
 	}

@@ -14,6 +14,7 @@ public class ServerThread extends Thread {
   boolean authentifiziert = false;
   boolean bereitsVerbunden = false;
   boolean passwortRichtig = false;
+  boolean localeAkzeptiert = false;
   SpielListe playlist; 
   ServerDatabase database;
   ResourceBundle bundle = ResourceBundle.getBundle("msgkatalog");
@@ -99,8 +100,25 @@ public class ServerThread extends Thread {
         		out.println("#");
         		passwort = in.readLine().toLowerCase();
         		playerId = this.playlist.newplayer(socket.toString(),name,playerId,passwort);
-
-	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: " + name + "\n\r[Server] Die SpielerID lautet: " + playerId + "\n\r\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
+        		String tmpLocale = "";
+        		
+        		while (localeAkzeptiert == false) {
+        			out.println("\r\n[Server] Bitte legen die Sprache fest: [de/en]");
+        			out.println("#");
+        			tmpLocale = in.readLine().toLowerCase();
+        				if (tmpLocale.equals("de") == true) {
+        					database.updatePlayerLocale(playerId, "de_DE");
+        					localeAkzeptiert = true;
+        				} else if (tmpLocale.equals("en") == true) {
+        					database.updatePlayerLocale(playerId, "en_EN");
+        					localeAkzeptiert = true;
+        				} else {
+        					out.println("\r\n[Server] Die eingegebene Sprache ist nicht bekannt. Bitte [de/en] eingeben.");
+        				}
+        		
+        		}
+        		
+	        	out.println("\r\n[Server] Der Spielername wurde festgelegt auf: " + name + "\n\r[Server] Die SpielerID lautet: " + playerId +"\n\r[Server] Die Sprache wurde festgelegt auf: " + tmpLocale + "\r\n[Server] Willkommen auf dem 4Gewinnt Server.\r\n\r\n");
 	        	
 	        	
 	        	System.out.println("[Server] Spielername festgelegt auf "
