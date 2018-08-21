@@ -40,8 +40,7 @@ public class ServerThread extends Thread {
 
 	      // Ausgabe Printwriter, BufferedReader und InputstreamReader wird erzeugt
 	      PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-	      BufferedReader in = new BufferedReader(
-		  new InputStreamReader(socket.getInputStream()));
+	      BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 	      //In InputLine werden Eingaben eingelesen
 	      String inputLine;
