@@ -4,7 +4,13 @@ package Test;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.*;
+
+import viergewinnt.GUI;
+
 public class Client {
+	
+	private static JLabel lab;
 
 public static void main(String[] args) throws IOException
 {
@@ -13,10 +19,15 @@ public static void main(String[] args) throws IOException
     Scanner in = null;
     //Scanner sIn = null;
     BufferedReader eIn = null;
-    boolean listening = true;
-
-    try{
-    	System.out.println("[Client] Verbinde zu Server....");
+    boolean listening = true;    
+    
+    GUI gui = new GUI();
+    lab = new JLabel("[Client] Verbinde zu Server");
+    
+    try{	
+    	gui.frame.add(lab);
+    	gui.frame.setVisible(true);
+    	//System.out.println("[Client] Verbinde zu Server....");
         //sock = new java.net.Socket("192.168.2.119",10000);
     	sock = new java.net.Socket("localhost",10000);
     	out = new PrintWriter(sock.getOutputStream(), true);
