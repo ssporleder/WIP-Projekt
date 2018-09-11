@@ -1,8 +1,14 @@
 package viergewinnt;
 
 import java.awt.EventQueue;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
@@ -15,24 +21,92 @@ public class GUI {
 
 	public JFrame frame;
 	public JTextField textfeld;
-	public JPanel hauptbild;
+	public static JPanel hauptbild;
 	public JScrollPane console;
 	public JScrollPane spielerbild;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
+		
+		java.net.Socket sock = null;
+	    PrintWriter out = null;
+	    Scanner in = null;
+	    //Scanner sIn = null;
+	    BufferedReader eIn = null;
+	    boolean listening = true;    
+		JLabel label1 = new JLabel();
+		
+		label1.setText("Hallo Welt!");
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					GUI window = new GUI();
+					window.hauptbild.add(label1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
+	    try{	
+	    	System.out.println("[Client] Verbinde zu Server....");
+	        //sock = new java.net.Socket("192.168.2.119",10000);
+	    	sock = new java.net.Socket("localhost",10000);
+	    	out = new PrintWriter(sock.getOutputStream(), true);
+	        //out = new PrintWriter(new OutputStreamWriter(sock.getOutputStream()));
+	        in = new Scanner(new BufferedReader(new InputStreamReader(sock.getInputStream())));
+	        //sIn = new Scanner(System.in);
+	        eIn = new BufferedReader(new InputStreamReader(System.in));
+	        
+	        label1.setText("Hallo Welt");
+
+	    }catch(Exception e){
+	        System.out.println("[Client] Error connecting to server.");
+	        System.exit(1);
+	    }
+	    System.out.println("[Client] Verbunden.");
+
+	    String temp = "";
+	    
+	    //while((temp = sIn.nextLine()) != null)
+	    while(listening)
+	    {
+	    	
+	    	//System.out.println(out.println(temp));
+	    	
+	    
+	    	//out.println(temp);
+	    	String line = "";
+	    	while(!line.equals("#")){
+	    		
+	    		line = in.nextLine();
+	    		if(!line.equals("#")){
+	    		System.out.println(line);    	
+	    		}
+	    		
+	    	} 
+	    	
+	    	    	
+	    	//System.out.println("[Client] Sende Nachricht....");
+	    	temp = eIn.readLine();
+	    	System.out.println(temp);
+	    	out.println(temp);
+	    	out.flush();
+
+	        if(temp.equals("end")) break;
+	    }
+
+	    try{
+	        sock.close();
+	        in.close();
+	        out.close();
+	        eIn.close();
+	    }catch(IOException ioe){}
+	    
 	}
 
 	/**
