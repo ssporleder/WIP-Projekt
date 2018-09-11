@@ -62,7 +62,7 @@ public class GUI {
 	        //sIn = new Scanner(System.in);
 	        eIn = new BufferedReader(new InputStreamReader(System.in));
 	        
-	        label1.setText("Hallo Welt");
+	        label1.setText("Hallo Welt!!!");
 
 	    }catch(Exception e){
 	        System.out.println("[Client] Error connecting to server.");
