@@ -38,8 +38,6 @@ public class GUI {
 	    boolean listening = true;    
 		JLabel label1 = new JLabel();
 		
-		label1.setText("Hallo Welt!");
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
