@@ -16,14 +16,15 @@ import javax.swing.JScrollPane;
 import com.sun.java.swing.plaf.windows.resources.windows;
 
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class GUI {
-
-	public JFrame frame;
-	public JTextField textfeld;
+	
 	public static JPanel hauptbild;
-	public JScrollPane console;
-	public JScrollPane spielerbild;
+	public static JFrame frame;
+	public static JTextField textfeld;
+	public static JScrollPane console;
+	public static JScrollPane spielerbild;
 
 	/**
 	 * Launch the application.
@@ -37,12 +38,12 @@ public class GUI {
 	    BufferedReader eIn = null;
 	    boolean listening = true;    
 		JLabel label1 = new JLabel();
+		GUI window = new GUI();
+		
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
-					window.hauptbild.add(label1);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,8 @@ public class GUI {
 		});
 		
 	    try{	
-	    	System.out.println("[Client] Verbinde zu Server....");
+	    	label1.setText("[Client] Verbinde zu Server....");
+	    	setJPanel(label1);
 	        //sock = new java.net.Socket("192.168.2.119",10000);
 	    	sock = new java.net.Socket("localhost",10000);
 	    	out = new PrintWriter(sock.getOutputStream(), true);
@@ -60,13 +62,15 @@ public class GUI {
 	        //sIn = new Scanner(System.in);
 	        eIn = new BufferedReader(new InputStreamReader(System.in));
 	        
-	        label1.setText("Hallo Welt!!!");
+	        //label1.setText("Hallo Welt!!!");
 
 	    }catch(Exception e){
-	        System.out.println("[Client] Error connecting to server.");
+	        label1.setText("[Client] Error connecting to server.");
+	        setJPanel(label1);
 	        System.exit(1);
 	    }
-	    System.out.println("[Client] Verbunden.");
+	    label1.setText("[Client] Verbunden.");
+	    setJPanel(label1);
 
 	    String temp = "";
 	    
@@ -76,14 +80,16 @@ public class GUI {
 	    	
 	    	//System.out.println(out.println(temp));
 	    	
-	    
+	    	
 	    	//out.println(temp);
 	    	String line = "";
 	    	while(!line.equals("#")){
 	    		
 	    		line = in.nextLine();
 	    		if(!line.equals("#")){
-	    		System.out.println(line);    	
+	    			label1.setText(line);
+	    			setJPanel(label1);
+	    		//System.out.println(line);    	
 	    		}
 	    		
 	    	} 
@@ -120,13 +126,9 @@ public class GUI {
 	 */
 	private void initialize() {
 		
-		frame = new JFrame();
+		frame = new JFrame("Viergewinnt");
 		frame.getContentPane().setEnabled(false);
 		frame.getContentPane().setLayout(null);
-		
-		hauptbild = new JPanel();
-		hauptbild.setBounds(0, 0, 348, 376);
-		frame.getContentPane().add(hauptbild);
 		
 		console = new JScrollPane();
 		console.setBounds(351, 0, 274, 201);
@@ -140,7 +142,18 @@ public class GUI {
 		textfeld.setBounds(351, 204, 274, 30);
 		frame.getContentPane().add(textfeld);
 		textfeld.setColumns(10);
+		
+		hauptbild = new JPanel();
+		hauptbild.setBounds(0, 0, 351, 376);
+		frame.getContentPane().add(hauptbild);
 		frame.setBounds(100, 100, 641, 414);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-}
+	
+		private static void setJPanel(JLabel label){
+			hauptbild.add(label);
+			hauptbild.setVisible(true);
+		}
+	}
+
+
