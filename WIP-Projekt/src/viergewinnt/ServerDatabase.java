@@ -1,3 +1,6 @@
+
+//Der folgende Code wurde durch Sebastian Sporleder erstellt.
+
 package viergewinnt;
 
 import java.sql.Connection;
@@ -10,10 +13,11 @@ import java.sql.ResultSet;
 
 public class ServerDatabase {
 
+	//Zunächst wird das Home-Directory des Nutzers ermittelnt und dann im zweiten Schritt festgelegt wo nachher die Datenbankdatei gespeicher werden soll.
 	public String USER_HOME = System.getProperty("user.home");
 	public String dbUrl = "jdbc:sqlite:" + USER_HOME + "/" + "ServerDatabase.db";
 	
-	
+	//Durch den Aufruf der folgenden Methode wird die Datenbank in Form der Datei erstellt.
     public void createNewDatabase()  {
  
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
@@ -28,6 +32,7 @@ public class ServerDatabase {
         }
     }
   
+    //In der folgenden Methode werden die benötigten Tabellen per SQL Befehl angelegt, sofern diese noch nicht bestehen.
     public void createNewTable(String tableName) {
 
     	String sql = null;
@@ -70,6 +75,9 @@ public class ServerDatabase {
         
         }
     }
+    
+    
+    //Im folgenden werden alle benötigten SQL-Kommandos für den Spielbetrieb aufgeführt. Der Aufbau ist eigentlich immer fast gleich. Es wird durch die Übergabeparameter ein SQL-Kommando zusammengesetz, welches dann zum Schluss ausgeführt wird. In vielen Fällen erfolgt ein return.
     
     public int insertPlayer(String name, String status, String socket, String passwort)  {
     	String sql = "INSERT INTO Spieler(id,name,status,socket,gewonnen,verloren,passwort,locale) VALUES(null,?,?,?,?,?,?,?)";

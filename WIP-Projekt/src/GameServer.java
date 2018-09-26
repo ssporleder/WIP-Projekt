@@ -1,3 +1,6 @@
+
+//Der folgende Code wurde durch Sebastian Sporleder erstellt.
+
 import java.net.*;
 import java.io.*;
 import viergewinnt.*;

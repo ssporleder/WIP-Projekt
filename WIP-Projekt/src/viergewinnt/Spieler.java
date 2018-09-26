@@ -1,17 +1,15 @@
+
+//Der folgende Code wurde durch Sebastian Sporleder erstellt.
+
 package viergewinnt;
 
 public class Spieler{
 	public String name;
 	public String status;
-	//TODO Die folgenden Zeilen können vorraussichtlich weg.
-	//public int status1;/*Speichert ob der spieler am zug ist(0) oder warten soll(1), auch beim spiel start nutzlich*/
-	//public int anzahlGewonnen = 0;//Speichert vie oft der Spieler gewonnen hat
-	//public int anzahlVerloren = 0;//Speichert vie oft der Spieler verloren hat
-	//public int wincondition =0;/*Hilfs Variable diespeichert ob der spieler verloren hat oder es eine Remize var*/
 	public String socket;
 	public int playerId;
 	ServerDatabase database;
-	public Spiel game;//Spiel
+	public Spiel game;
 	
 	//Erzeugt einen Spieler	
 	public Spieler(int playerId, String socket){
@@ -21,53 +19,53 @@ public class Spieler{
 		this.status = database.getPlayerStatusFromId(playerId);
 	 	this.socket = socket;
 	 	this.playerId = playerId;
-	 	/* TODO die folgenden Zeilen können vorraussichtliche weg. */
-	 	//this.status = database.getPlayerStatusFromId(playerId);
-	 	//this.anzahlGewonnen = database.getAnzahlGewonnen(playerId);
-	 	//this.anzahlVerloren = database.getAnzahlGewonnen(playerId);
-	 	//this.game = new Spiel(database.getPlayerSpielId(playerId));
 	 }
 	
-	// TODO Die folgenden Zeilen können vorraussichtlich weg
-	//public Player (Player pl) {
-	//}
-
+	//Methode um zu einer SpielerId den passenden Spielernamen zu ermitteln
 	public String getName(int playerId) {
 		name = database.getPlayerName(playerId);
 		return name;
 	}
 
+	//Methode um zu einer SpielerId den passenden Status des Spielers zu ermitteln
 	public String getStatus(int playerId) {
 		status = database.getPlayerStatusFromId(playerId);
 		return status;
 	}
 	
+	//Methode um zu einer SpielerId den Status zu setzen
 	public void setStatusPlayer(int playerId, String status){
 		database.updatePlayerStatus(playerId, status);
 	}
 	
+	//Methode um zu einer SpielerId das eingegebene Passwort zu setzen
 	public void setStatusPassword(int playerId, String password){
 		database.updatePlayerPassword(playerId, password);
 	}
 	
+	//Methode um zu einer SpielerId die eingegebene locale zu hinterlegen
 	public void setStatusLocale(int playerId, String locale){
 		database.updatePlayerLocale(playerId, locale);
 	}
 	
+	//Methode um zu einer SpielerId zu hinterlegen das dieser in einem Spiel am Zug ist.
 	public void setAmZugPlayer(int playerId, int amZug){
 		database.updatePlayerAmZug(playerId, amZug);
 	}
 	
+	//Methode um zu ermitteln, welcher Spieler in einem Spiel "am Zug" ist.
 	public int getPlayerAmZug(int playerId) {
 		int ergebnis;
 		ergebnis = database.getPlayerAmZugFromId(playerId);
 		return ergebnis;
 	}
 	
+	//Methode um zu einem Spiel Spieler1 und Spieler2 festzulegen.
 	public void setPlayerSpielId(int playerId, int spielId){
 		database.updatePlayerSpielId(playerId, spielId);
 	}
 	
+	//Methode um herauszufinden welches Spiel ein Spieler zur Zeit spielt.
 	public int getPlayerSpielId(int playerId){
 		int spielId = database.getPlayerSpielId(playerId);
 		return spielId;

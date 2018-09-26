@@ -1,3 +1,6 @@
+
+//Der folgende Code wurde durch Sebastian Sporleder erstellt.
+
 package viergewinnt;
 import java.net.*;
 import java.util.Locale;
@@ -61,7 +64,7 @@ public class ServerThread extends Thread {
 	        	out.println("#");}
 	      } 
 	    
-	      //In dieser Schleife wird zunächst egeprüft, ob ein Spieler schon bekannt ist.
+	      //In dieser Schleife wird zunächst geprüft, ob ein Spieler schon bekannt ist.
 	      //Wenn der Spieler bekannt ist wird die Authentifizierung des Spielers gegen die Daten in der Spielertabelle durchgeführt. 
 	      //Es wird Benutzername und Passwort überprüft.
 	      while(authentifiziert == false) {  				

@@ -3,6 +3,8 @@ package viergewinnt;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+//Die Klasse Spiel wurde bis auf die beiden Methoden (deserializeFeld() und serializeFeld()) implementiert von Patrick Ostapowicz
+
 public class Spiel {
 	int [][] feld;
 	int status;
@@ -44,23 +46,23 @@ public class Spiel {
 			//Prüft, ob das Spielfeld nicht voll ist. Wenn nicht geht es weiter
 			if (voll() == false){
 					
-				//findet heraus welches Zeichen der Spieler am Zug hat
+				//Legt fest, dass Spieler 1 das Zeichen 1 bekommt.
 				if (name.equals(spieler1)){sign = 1;}
 				else {sign = 2;};
 			
 				//
 				if(a == 0) {
-					/*Algoritmus der das Stein(Zeichen) in das Feld(field) hineingibt
-					und dann pruft ob der Spieler gewonnen hat oder nicht*/
+					/*Algoritmus, der das Stein(Zeichen) in das Feld(feld) hineingibt
+					und dann prüft, ob der Spieler gewonnen hat oder nicht*/
 					while(y < 5 && feld[x][y+1] == 0){y = y + 1;};
-					//Pruft ob die spalte nicht voll ist
+					//Überprüft, ob die Spalte nicht voll ist
 					if (y != -1){
 					feld[x][y] = sign;
 					database.updateSpielFeld(spielId, serializeFeld(feld));
 						
-						wl = pruefen(x,y, sign);//startet den Kontrol algoritmus
+						wl = pruefen(x,y, sign);
 						if (wl == false){
-							playlist.wechsel(spielId);//verschiebt die Rheienfolge
+							playlist.wechsel(spielId);
 							return(bundle.getString("my.27"));
 						}
 						else {
@@ -76,13 +78,16 @@ public class Spiel {
 				else{return(bundle.getString("my.31"));};
 			
 			}
-			//Wen das Feld voll ist gewinnt niemand
+			//Wenn das Feld voll ist gewinnt keiner
 			else{
 				playlist.keinSieg(spielId);
 				return(bundle.getString("my.26"));}
 			return("");
 		}
 
+	
+	//Implementiert durch Sebastian Sporleder
+	//Die folgende Methode serialisiert ein eingegebenes Array, damit dieses in die Datenbank als String geschrieben werden kann
 	private String serializeFeld(int [][] feld)
 	{
 		String s = "";
@@ -104,6 +109,8 @@ public class Spiel {
 		return s;
 	}
 
+	//Implementiert durch Sebastian Sporleder
+	//Die folgende Methode deserialisiert einen eingegebenen String zu einem Array, damit dieses für den nächsten Spielzug und die Darstellung des Ergebnisses verwendet werden kann.
 	private void deserializeFeld(int [][] feld, String s)
 	{
 		String[] ys = s.substring(1, s.length() - 1).split("],.");
@@ -119,21 +126,21 @@ public class Spiel {
 		}
 	}
 
+	
+	
 	//Kontrollalgorithmus	
 		private boolean pruefen(int x, int y,int sign){	
 			int x1 = x;
 			int y1 = y;	
-			int inreihe = 0;//vie viel in der rheie sind
+			int inreihe = 0;
 			deserializeFeld(feld, database.getSpielFeld(spielId));
 			
-			//horizontal
-			//check right
+			
 			while(x1>0 && feld[x1-1][y1] == sign){
 				x1--;
 				inreihe++; 
 				if(inreihe == 3){return(true);};			
 			}
-			//check left
 			x1 = x;
 			y1 = y;
 			while(x1<6 && feld[x1+1][y1] == sign){
@@ -142,9 +149,7 @@ public class Spiel {
 						if(inreihe == 3){return(true);};
 			}
 			inreihe = 0;
-			
-			//vertical
-			//up		
+					
 			x1 = x;
 			y1 = y;
 			while(y1>0 && feld[x1][y1-1] == sign){
@@ -152,7 +157,7 @@ public class Spiel {
 				inreihe++; 
 				if(inreihe == 3){return(true);};			
 			}
-			//down
+			
 			x1 = x;
 			y1 = y;
 			while(y1<5 && feld[x1][y1+1] == sign){
@@ -161,9 +166,7 @@ public class Spiel {
 				if(inreihe == 3){return(true);};			
 			}
 			inreihe = 0;
-		
-			//
-			//up right		
+				
 			x1 = x;
 			y1 = y;
 			while(x1>0 && y1>0 && feld[x1-1][y1-1] == sign){
@@ -172,7 +175,7 @@ public class Spiel {
 				inreihe++; 
 				if(inreihe == 3){return(true);};			
 			}
-			//down left
+
 			x1 = x;
 			y1 = y;
 			while(x1<6 && y1<5 && feld[x1][y1] == sign){
@@ -182,9 +185,7 @@ public class Spiel {
 				if(inreihe == 3){return(true);};			
 			}
 			inreihe = 0;
-		
-			//
-			//up left		
+			
 			x1 = x;
 			y1 = y;
 			while(x1<5 && y1>0 && feld[x1+1][y1-1] == sign){
@@ -193,7 +194,8 @@ public class Spiel {
 				inreihe++; 
 				if(inreihe == 3){return(true);};			
 			}
-			//down right
+
+
 			x1 = x;
 			y1 = y;
 			while(x1>0 && y1<5 && feld[x1-1][y1+1] == sign){
